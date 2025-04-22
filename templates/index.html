@@ -1,0 +1,183 @@
+{% extends "layout.html" %}
+{% block content %}
+  <div class="d-flex justify-content-between align-items-center mb-3">
+    <h1 class="h4 mb-0">GRCA Stations Dashboard</h1>
+    <div class="dropdown">
+      <button class="btn btn-secondary dropdown-toggle" type="button"
+              id="clusterDropdown" data-bs-toggle="dropdown"
+              aria-expanded="false">
+        Show: All
+      </button>
+      <ul class="dropdown-menu" aria-labelledby="clusterDropdown" id="cluster-menu">
+        <li><a class="dropdown-item active" href="#" data-cluster="All">All</a></li>
+        <!-- cluster items added by script -->
+      </ul>
+    </div>
+  </div>
+
+  <div id="map" class="mb-4 border" style="height:400px"></div>
+
+  <div class="row">
+    <div class="col-md-6 mb-3">
+      <div class="card h-100">
+        <div class="card-header bg-secondary text-white">
+          Stations List
+        </div>
+        <div class="card-body p-0">
+          <table class="table table-striped mb-0" id="stations-table">
+            <thead>
+              <tr><th>Name</th><th>No.</th></tr>
+            </thead>
+            <tbody></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-6 mb-3">
+      <div class="card h-100">
+        <div class="card-header bg-secondary text-white">
+          Example Parameters
+        </div>
+        <div class="card-body p-0">
+          <table class="table table-striped mb-0">
+            <thead><tr><th>Station No.</th><th>Param. Code</th><th>Value</th></tr></thead>
+            <tbody><tr><td colspan="3" class="text-center text-muted">Coming soon…</td></tr></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+  // ─── Configuration ─────────────────────────────────────────────────────────
+  const EXCLUDE = [
+    "Millbank Climate Station","Dundalk Climate Station","Keldon",
+    "Leggatt","Dickie Settlement Road","New Dundee Road","Horner Creek",
+    "Canning","Burford Climate Station","Burford Nursery","Mount Vernon",
+    "Weber Street","Clair Creek","Erbsville","Mill Creek",
+    "Fairchild near Brantford","McKenzie Creek","Sulphur Creek d/s fish ladder",
+    "Aberfoyle"
+  ];
+
+  const CLUSTERS = {
+    "Shades Mills": [
+      "Shades Mills Dam Climate Station","New Dundee Dam"
+    ],
+    "Upper Grand (Lake Belwood & Above)": [
+      "Below Shand WQ Station","Shand Dam Climate Station",
+      "Upper Belwood","Marsville","Waldemar"
+    ],
+    "Upper Grand (North of Sawmill Road)": [
+      "Salem","Elora Climate Station","West Montrose"
+    ],
+    "Mid Grand": [
+      "Bridgeport WQ Station","Bridgeport","Victoria(Breslau) Continuous Station"
+    ],
+    "Mid Grand (Doon to Cambridge)": [
+      "Hidden Valley","Doon","Blair WQ Station",
+      "Galt","Glen Morris WQ Station"
+    ],
+    "Lower Grand (Brantford)": [
+      "Brant WQ Station","Brant Climate Station","Brantford"
+    ],
+    "Lower Grand (Below Caledonia)": [
+      "York","York WQ Station","Dunnville upstream Weir 3",
+      "Byng Island Climate Station","Port Maitland"
+    ],
+    "Speed River": [
+      "Beaverdale","Road 32 WQ Station","Hanlon WQ Station"
+    ],
+    "Guelph Lake CA": [
+      "Armstrong Mills","Guelph Lake Dam","Victoria Road"
+    ],
+    "Eramosa River": ["Eramosa"],
+    "Woolwich Reservoir": [
+      "Woolwich Dam Climate Station","Floradale","Luther Marsh Dam"
+    ],
+    "Conestoga River (Upper)": ["Upper Drayton","Drayton"],
+    "Conestoga River (Lower)": [
+      "Conestogo Dam","Glen Allan","Conestogo Climate Station","St. Jacobs"
+    ],
+    "Nith River": [
+      "New Hamburg","Philipsburg","Baden Climate Station",
+      "Nithburg","Wellesley Dam"
+    ]
+  };
+
+  let allFeatures = [], currentLayer;
+
+  // ─── Initialize map ────────────────────────────────────────────────────────
+  const map = L.map('map').setView([43.5, -80.5], 10);
+  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{
+    maxZoom: 18
+  }).addTo(map);
+
+  // ─── Utility: render a subset of features ──────────────────────────────────
+  function showFeatures(clusterName) {
+    // clear table + map layer
+    document.querySelector('#stations-table tbody').innerHTML = '';
+    if (currentLayer) map.removeLayer(currentLayer);
+
+    // choose which station_names to show
+    let allowed = (clusterName==='All'
+      ? allFeatures.map(f=>f.properties.station_name)
+      : CLUSTERS[clusterName] || []
+    );
+
+    // prepare GeoJSON subset
+    const subset = {
+      "type":"FeatureCollection",
+      "features": allFeatures
+        .filter(f => allowed.includes(f.properties.station_name))
+    };
+
+    // add to map
+    currentLayer = L.geoJSON(subset, {
+      onEachFeature: (feat, layer) => {
+        const p = feat.properties;
+        layer.bindPopup(`<b>${p.station_name}</b><br/>No: ${p.station_no}`);
+        // add to table
+        const tr = document.createElement('tr');
+        tr.innerHTML = `<td>${p.station_name}</td><td>${p.station_no}</td>`;
+        document.querySelector('#stations-table tbody').append(tr);
+      }
+    }).addTo(map);
+  }
+
+  // ─── Fetch + initial render ───────────────────────────────────────────────
+  fetch('/api/stations')
+    .then(r=>r.json())
+    .then(geojson => {
+      // filter out the excluded stations
+      allFeatures = geojson.features
+        .filter(f => !EXCLUDE.includes(f.properties.station_name));
+
+      // populate cluster dropdown
+      const menu = document.getElementById('cluster-menu');
+      Object.keys(CLUSTERS).forEach(name => {
+        const li = document.createElement('li');
+        li.innerHTML = `<a class="dropdown-item" href="#" data-cluster="${name}">${name}</a>`;
+        menu.append(li);
+      });
+
+      // wire dropdown clicks
+      menu.addEventListener('click', e => {
+        if (!e.target.matches('.dropdown-item')) return;
+        e.preventDefault();
+        // mark active
+        menu.querySelectorAll('.dropdown-item').forEach(a=>a.classList.remove('active'));
+        e.target.classList.add('active');
+        const sel = e.target.dataset.cluster;
+        document.querySelector('#clusterDropdown').textContent = `Show: ${sel}`;
+        showFeatures(sel);
+      });
+
+      // show all by default
+      showFeatures('All');
+    })
+    .catch(console.error);
+</script>
+{% endblock %}
