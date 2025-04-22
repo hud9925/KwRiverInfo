@@ -1,0 +1,1 @@
+Flask powered web app for visualizing near‑real‑time hydrological data from the Grand River Conservation Authority (GRCA). Users can filter by sub‑basin (Upper Grand, Lower Conestogo, etc.) and view clustered station time‑series on an interactive map
