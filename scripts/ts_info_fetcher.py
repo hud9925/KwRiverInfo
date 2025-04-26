@@ -1,4 +1,3 @@
-#!/usr/bin/env python
 """
 Fetch the latest GRCA KiWIS value for HG, QR, TA, TW, UD, US
 and write one CSV per station.
@@ -27,6 +26,12 @@ TIMEZONE   = "America/Toronto" # ask KiWIS to return local timestamps
 
 # when I was coding this, I was in Japan, so no requests were returned till I changed to ETC
 os.makedirs(OUTDIR, exist_ok=True)
+
+
+# establish 
+
+
+
 
 # ─── helpers ────────────────────────────────────────────────────────────
 def fetch_latest(ts_ids):
