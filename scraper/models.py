@@ -4,35 +4,67 @@ from config.settings import SQLALCHEMY_URI
 print("SQLALCHEMY_URI =", SQLALCHEMY_URI)
 
 from sqlalchemy import (
-    Column, Integer, Float, DateTime, String, MetaData, create_engine
+    Column, Integer, Float, DateTime, String, MetaData, create_engine, ForeignKey,
 )
-from sqlalchemy.orm import declarative_base, Session
+from sqlalchemy.orm import declarative_base, Session, relationship
 
 from config.settings import SQLALCHEMY_URI
 
 engine = create_engine(SQLALCHEMY_URI, pool_pre_ping=True)
 Base   = declarative_base(metadata=MetaData())
 
-class Observation(Base):
-    __tablename__ = "observations"
+# ─── Models ───────────────────────────────────────────────────────────
+class Station(Base):
+    __tablename__ = 'stations'
 
-    id        = Column(Integer, primary_key=True)
-    ts_id     = Column(Integer, index=True, nullable=False)
-    station_id= Column(String(16), index=True, nullable=False)
+    id = Column(Integer, primary_key=True)
+    station_id = Column(String, unique=True, nullable=False)
+    name = Column(String, nullable=True)
+    latitude = Column(Float, nullable=True)
+    longitude = Column(Float, nullable=True)
 
-    timestamp = Column(DateTime(timezone=True), index=True, nullable=False)
-    value     = Column(Float, nullable=False)
+    timeseries_meta = relationship(
+        'TimeseriesMetadata', back_populates='station', cascade='all, delete-orphan'
+    )
+    data = relationship(
+        'TimeseriesData', back_populates='station', cascade='all, delete-orphan'
+    )
 
-    parameter_type_name = Column(String(4))   # HG / QR / …
-    parameter_fullname  = Column(String(64))
-    unit       = Column(String(12))
+class TimeseriesMetadata(Base):
+    __tablename__ = 'timeseries_metadata'
 
-    created_at = Column(DateTime(timezone=True),
-                        default=lambda: datetime.now(timezone.utc),
-                        nullable=False)
+    ts_id = Column(Integer, primary_key=True)
+    station_id = Column(Integer, ForeignKey('stations.id'), nullable=False)
+    ts_path = Column(String, nullable=True)
+    ts_name = Column(String, nullable=True)
+    ts_shortname = Column(String, nullable=True)
+    parametertype_id = Column(String, nullable=True)
+    parametertype_name = Column(String, nullable=True)
 
-# run once at import time (fine for simple project – otherwise use Alembic)
+    station = relationship('Station', back_populates='timeseries_meta')
+    data = relationship(
+        'TimeseriesData', back_populates='ts_metadata', cascade='all, delete-orphan'
+    )
+
+class TimeseriesData(Base):
+    __tablename__ = 'timeseries_data'
+
+    id = Column(Integer, primary_key=True, autoincrement=True)
+    timestamp = Column(DateTime(timezone=True), nullable=False, index=True)
+    value = Column(Float, nullable=False)
+    ts_id = Column(Integer, ForeignKey('timeseries_metadata.ts_id'), nullable=False)
+    station_id = Column(Integer, ForeignKey('stations.id'), nullable=False)
+    parametertype_name = Column(String, nullable=True)
+    unit = Column(String, nullable=True)
+    parameter_fullname = Column(String, nullable=True)
+
+    station = relationship('Station', back_populates='data')
+    ts_metadata = relationship('TimeseriesMetadata', back_populates='data')
+
+# create tables
 Base.metadata.create_all(engine)
+
+# session factory
 
 def get_session() -> Session:
     return Session(engine, autoflush=False, expire_on_commit=False)
