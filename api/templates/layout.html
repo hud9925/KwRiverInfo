@@ -1,36 +1,61 @@
 <!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>GRCA Stations Dashboard</title>
-    <!-- Bootstrap 5 -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
-          rel="stylesheet">
-    <!-- Leaflet CSS -->
-    <link rel="stylesheet"
-          href="https://unpkg.com/leaflet@1.9.3/dist/leaflet.css"/>
-    <style>
-      body { padding-top: 56px; }
-      #map { height: 400px; }
-    </style>
-  </head>
-  <body>
-    <!-- fixed top navbar -->
-    <nav class="navbar navbar-expand-lg navbar-dark bg-primary fixed-top">
-      <div class="container-fluid">
-        <a class="navbar-brand" href="#">GRCA Dashboard</a>
-      </div>
-    </nav>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>GRCA Dashboard</title>
 
-    <div class="container mt-4">
-      {% block content %}{% endblock %}
+  <!-- Bootstrap 5 -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
+  <!-- Leaflet CSS (only the map tab uses it, but safe to load once) -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.3/dist/leaflet.css"/>
+
+  <style>
+    body { padding-top: 56px; }
+    .legend-box{display:inline-block;width:12px;height:12px;border-radius:2px;margin-right:4px;}
+  </style>
+</head>
+<body>
+  <!-- Fixed-top navbar -->
+  <nav class="navbar navbar-expand-lg navbar-dark bg-primary fixed-top">
+    <div class="container-fluid">
+      <span class="navbar-brand">GRCA Dashboard</span>
     </div>
+  </nav>
 
-    <!-- Bootstrap + Leaflet JS -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js">
-    </script>
-    <script src="https://unpkg.com/leaflet@1.9.3/dist/leaflet.js"></script>
-    {% block scripts %}{% endblock %}
-  </body>
+  <style>
+    #loading {
+      position: fixed; top:0; left:0; right:0; bottom:0;
+      background: rgba(255,255,255,0.8);
+      display: flex; align-items:center; justify-content:center;
+      z-index: 2000; visibility: hidden;
+    }
+  </style>
+  <div id="loading">
+    <div class="spinner-border text-primary" role="status">
+      <span class="visually-hidden">Loading…</span>
+    </div>
+  </div>
+
+  <!-- Tabs -->
+  <ul class="nav nav-tabs" id="dash-tabs">
+    <li class="nav-item">
+      <button class="nav-link active" data-tab="map">Map</button>
+    </li>
+    <li class="nav-item">
+      <button class="nav-link" data-tab="cond">Current Conditions</button>
+    </li>
+    <li class="nav-item">
+      <button class="nav-link" data-tab="adv">Advisories & Trends</button>
+    </li>
+  </ul>
+  <div id="tab-content"></div>
+
+
+  <!-- Scripts -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="https://unpkg.com/leaflet@1.9.3/dist/leaflet.js"></script>
+  <script src="{{ url_for('static', filename='main.js') }}"></script>
+</body>
 </html>
