@@ -10,14 +10,49 @@
       </button>
       <ul class="dropdown-menu" aria-labelledby="clusterDropdown" id="cluster-menu">
         <li><a class="dropdown-item active" href="#" data-cluster="All">All</a></li>
-        <!-- cluster items added by script -->
       </ul>
     </div>
   </div>
 
-  <div id="map" class="mb-4 border" style="height:400px"></div>
+  <div id="map" class="border rounded placeholder-glow">
+    <div class="placeholder w-100" style="height:60vh"></div>
+  </div>
+  
 
-  <div class="row">
+
+  <div class="d-flex align-items-center mb-3">
+    <div id="cc-map" style="width:200px;height:200px" class="border rounded me-3"></div>
+    <div class="flex-grow-1">
+      <div class="col-md-12 mb-3">
+        <div class="card h-100">
+          <div class="card-header bg-secondary text-white">
+            Latest Readings <span id="table-title">(All stations)</span>
+          </div>
+          <div class="card-body p-0">
+            <table class="table table-striped mb-0" id="readings-table">
+              <thead>
+                <tr>
+                  <th>Station</th><th>Parameter</th>
+                  <th>Value</th><th>Unit</th><th>Time</th>
+                </tr>
+              </thead>
+              <tbody></tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  
+
+
+
+
+
+
+  <!-- <div class="row">
     <div class="col-md-6 mb-3">
       <div class="card h-100">
         <div class="card-header bg-secondary text-white">
@@ -33,26 +68,12 @@
         </div>
       </div>
     </div>
-
-    <div class="col-md-6 mb-3">
-      <div class="card h-100">
-        <div class="card-header bg-secondary text-white">
-          Example Parameters
-        </div>
-        <div class="card-body p-0">
-          <table class="table table-striped mb-0">
-            <thead><tr><th>Station No.</th><th>Param. Code</th><th>Value</th></tr></thead>
-            <tbody><tr><td colspan="3" class="text-center text-muted">Coming soon…</td></tr></tbody>
-          </table>
-        </div>
-      </div>
-    </div>
-  </div>
+  </div> -->
 {% endblock %}
 
 {% block scripts %}
 <script>
-  // ─── Configuration ─────────────────────────────────────────────────────────
+  // ─── Config ─────────────────────────────────────────────────────────────
   const EXCLUDE = [
     "Millbank Climate Station","Dundalk Climate Station","Keldon",
     "Leggatt","Dickie Settlement Road","New Dundee Road","Horner Creek",
@@ -63,9 +84,8 @@
   ];
 
   const CLUSTERS = {
-    "Shades Mills": [
-      "Shades Mills Dam Climate Station","New Dundee Dam"
-    ],
+    "Shades Mills": ["Shades Mills Dam Climate Station"],
+    "New Dundee": ["New Dundee Dam"],
     "Upper Grand (Lake Belwood & Above)": [
       "Below Shand WQ Station","Shand Dam Climate Station",
       "Upper Belwood","Marsville","Waldemar"
@@ -87,97 +107,118 @@
       "York","York WQ Station","Dunnville upstream Weir 3",
       "Byng Island Climate Station","Port Maitland"
     ],
-    "Speed River": [
-      "Beaverdale","Road 32 WQ Station","Hanlon WQ Station"
-    ],
-    "Guelph Lake CA": [
-      "Armstrong Mills","Guelph Lake Dam","Victoria Road"
-    ],
+    "Speed River": ["Beaverdale","Road 32 WQ Station","Hanlon WQ Station"],
+    "Guelph Lake CA": ["Armstrong Mills","Guelph Lake Dam","Victoria Road"],
     "Eramosa River": ["Eramosa"],
     "Woolwich Reservoir": [
-      "Woolwich Dam Climate Station","Floradale","Luther Marsh Dam"
+      "Woolwich Dam Climate Station","Floradale"
     ],
-    "Conestoga River (Upper)": ["Upper Drayton","Drayton"],
-    "Conestoga River (Lower)": [
+    "Conestogo River (North of Conestogo Lake)": ["Upper Drayton","Drayton"],
+    "Conestogo River (Conestogo Lake and Downstream)": [
       "Conestogo Dam","Glen Allan","Conestogo Climate Station","St. Jacobs"
     ],
     "Nith River": [
       "New Hamburg","Philipsburg","Baden Climate Station",
       "Nithburg","Wellesley Dam"
-    ]
-  };
-
+    ] };
   let allFeatures = [], currentLayer;
+  let clusterGroup;
+  
 
-  // ─── Initialize map ────────────────────────────────────────────────────────
-  const map = L.map('map').setView([43.5, -80.5], 10);
-  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{
-    maxZoom: 18
-  }).addTo(map);
+  let overlay;      // Leaflet layer for the cluster polygon
+const map = L.map('map').setView([43.5, -80.5], 10);
+L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{ maxZoom:18 }).addTo(map);
 
-  // ─── Utility: render a subset of features ──────────────────────────────────
-  function showFeatures(clusterName) {
-    // clear table + map layer
-    document.querySelector('#stations-table tbody').innerHTML = '';
-    if (currentLayer) map.removeLayer(currentLayer);
+/* ---------- helper: update readings table ---------- */
+function renderTable(rows, title) {
+  const tbody = document.querySelector('#readings-table tbody');
+  tbody.innerHTML = '';
+  document.getElementById('table-title').textContent = title;
 
-    // choose which station_names to show
-    let allowed = (clusterName==='All'
-      ? allFeatures.map(f=>f.properties.station_name)
-      : CLUSTERS[clusterName] || []
-    );
+  if (!rows.length) {
+    tbody.innerHTML = `<tr><td colspan="5" class="text-center text-muted">
+                         No recent data
+                       </td></tr>`;
+    return;
+  }
+  rows.forEach(r => {
+    const tr = document.createElement('tr');
+    tr.innerHTML = `<td>${r.station}</td>
+                    <td>${r.parameter_fullname}</td>
+                    <td>${r.value}</td>
+                    <td>${r.unit}</td>
+                    <td>${new Date(r.timestamp).toLocaleString()}</td>`;
+    tbody.append(tr);
+  });
+}
 
-    // prepare GeoJSON subset
-    const subset = {
-      "type":"FeatureCollection",
-      "features": allFeatures
-        .filter(f => allowed.includes(f.properties.station_name))
-    };
+/* ---------- main cluster-switch logic ---------- */
+function showCluster(name) {
+  // clear old overlay
+  if (overlay) map.removeLayer(overlay);
 
-    // add to map
-    currentLayer = L.geoJSON(subset, {
-      onEachFeature: (feat, layer) => {
-        const p = feat.properties;
-        layer.bindPopup(`<b>${p.station_name}</b><br/>No: ${p.station_no}`);
-        // add to table
-        const tr = document.createElement('tr');
-        tr.innerHTML = `<td>${p.station_name}</td><td>${p.station_no}</td>`;
-        document.querySelector('#stations-table tbody').append(tr);
-      }
-    }).addTo(map);
+  if (name === 'All') {
+    renderTable([], '(All stations)');
+    return;
   }
 
-  // ─── Fetch + initial render ───────────────────────────────────────────────
-  fetch('/api/stations')
-    .then(r=>r.json())
-    .then(geojson => {
-      // filter out the excluded stations
-      allFeatures = geojson.features
-        .filter(f => !EXCLUDE.includes(f.properties.station_name));
+  const allowedNames = CLUSTERS[name] || [];
+  const features = allFeatures.filter(f =>
+      allowedNames.includes(f.properties.station_name));
 
-      // populate cluster dropdown
-      const menu = document.getElementById('cluster-menu');
-      Object.keys(CLUSTERS).forEach(name => {
-        const li = document.createElement('li');
-        li.innerHTML = `<a class="dropdown-item" href="#" data-cluster="${name}">${name}</a>`;
-        menu.append(li);
+  /* ---- 1. draw polygon around those stations ---- */
+  const latlngs = features.map(f => [f.geometry.coordinates[1],
+                                     f.geometry.coordinates[0]]);
+  overlay = L.polygon(latlngs, {color:'#0d6efd', weight:2, fillOpacity:0.1});
+  overlay.addTo(map);
+  map.fitBounds(overlay.getBounds());
+
+  /* ---- 2. fetch latest readings for that cluster ---- */
+  const ids = features.map(f => f.properties.db_id);
+  if (!ids.length) { renderTable([], `(Cluster: ${name})`); return; }
+
+  fetch('/api/cluster/latest?' + ids.map(id => `station_id=${id}`).join('&'))
+    .then(r => r.json())
+    .then(rows => {
+      // attach station name on the client side
+      rows.forEach(r => {
+        const match = features.find(f => f.properties.db_id === r.station_id);
+        r.station = match ? match.properties.station_name : r.station_id;
       });
-
-      // wire dropdown clicks
-      menu.addEventListener('click', e => {
-        if (!e.target.matches('.dropdown-item')) return;
-        e.preventDefault();
-        // mark active
-        menu.querySelectorAll('.dropdown-item').forEach(a=>a.classList.remove('active'));
-        e.target.classList.add('active');
-        const sel = e.target.dataset.cluster;
-        document.querySelector('#clusterDropdown').textContent = `Show: ${sel}`;
-        showFeatures(sel);
-      });
-
-      // show all by default
-      showFeatures('All');
+      renderTable(rows, `(Cluster: ${name})`);
     })
-    .catch(console.error);
+    .catch(() => renderTable([], '(Error loading data)'));
+}
+
+/* ---------- bootstrap on load ---------- */
+fetch('/api/stations')
+  .then(r => r.json())
+  .then(geojson => {
+    allFeatures = geojson.features;
+    // build dropdown
+    const menu = document.getElementById('cluster-menu');
+    ['All', ...Object.keys(CLUSTERS)].forEach((name,i)=>{
+      const li = document.createElement('li');
+      li.innerHTML =
+        `<a class="dropdown-item ${i===0?'active':''}" href="#" data-cluster="${name}">
+           ${name}
+         </a>`;
+      menu.append(li);
+    });
+    menu.addEventListener('click', e=>{
+      if (!e.target.matches('.dropdown-item')) return;
+      e.preventDefault();
+      menu.querySelectorAll('.dropdown-item')
+          .forEach(a=>a.classList.remove('active'));
+      e.target.classList.add('active');
+      document.getElementById('clusterDropdown').textContent =
+        `Show: ${e.target.dataset.cluster}`;
+      showCluster(e.target.dataset.cluster);
+    });
+
+    // default view
+    showCluster('All');
+  })
+  .catch(console.error);
 </script>
 {% endblock %}
