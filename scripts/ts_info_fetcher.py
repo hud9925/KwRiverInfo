@@ -21,7 +21,7 @@ UNITS  = dict(HG="m", QR="m³/s", TA="°C", TW="°C", UD="°", US="m/s")
 
 CHUNK      = 3                 # ts_ids per KiWIS call
 OUTDIR     = "output_csvs"
-PAUSE_S    = 0.6               # polite delay between requests
+PAUSE_S    = 0.6              
 TIMEZONE   = "America/Toronto" # ask KiWIS to return local timestamps
 
 # when I was coding this, I was in Japan, so no requests were returned till I changed to ETC
@@ -29,9 +29,6 @@ os.makedirs(OUTDIR, exist_ok=True)
 
 
 # establish 
-
-
-
 
 # ─── helpers ────────────────────────────────────────────────────────────
 def fetch_latest(ts_ids):

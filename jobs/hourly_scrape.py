@@ -20,7 +20,7 @@ def main():
             saved = save_rows(rows)
             total += saved
             print(f"{sid}: inserted {saved} rows")
-        time.sleep(THROTTLE_S)  # extra politeness between stations
+        #time.sleep(THROTTLE_S)  
 
     print(f"==> session complete – {total} rows committed")
 

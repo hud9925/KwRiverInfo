@@ -62,10 +62,15 @@ def save_rows(rows: List[dict]) -> int:
     """
     if not rows:
         return 0
-    s = get_session()
-    try:
+
+    with get_session() as s:
+        # build a map: external KiWIS ID -> internal stations.id
+        ext_to_int = {
+            st.station_id: st.id
+            for st in s.query(Station).all()
+        }
+
         s.bulk_insert_mappings(TimeseriesData, rows)
         s.commit()
-        return len(rows)
-    finally:
-        s.close()
+
+    return len(rows)
