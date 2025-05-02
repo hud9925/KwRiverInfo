@@ -21,7 +21,7 @@ BAD_PARAMS = {
 def create_app():
     # ─── App setup ───────────────────────────────────────────────────────────
     app = Flask(__name__, static_folder="static", template_folder="templates")
-    app.config.from_object("config.settings_example")
+    app.config.from_object("config.settings")
     db.init_app(app)
     Migrate(app, db)      # enables `flask db` commands
 
