@@ -8,5 +8,6 @@
   ],
   "functions": {
     "api/app.py": { "runtime": "python3.10" }
-  }
+  },
+  "installCommand": "pip install -r requirements.txt"
 }
