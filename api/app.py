@@ -1,7 +1,11 @@
 from pathlib import Path
+import sys 
+
+ROOT = Path(__file__).resolve().parent.parent
+sys.path.insert(0, str(ROOT))
+
 import json
 import requests
-
 from flask import Flask, render_template, jsonify, request, abort
 from flask_migrate import Migrate
 from sqlalchemy import text, bindparam
@@ -26,7 +30,7 @@ def create_app():
     Migrate(app, db)      # enables `flask db` commands
 
     # ─── Load our station‐metadata JSON ───────────────────────────────────────
-    BASE_DIR = Path(__file__).resolve().parent.parent  # root of your KwRiverInfo project
+    BASE_DIR = Path(__file__).resolve().parent.parent  
     META_PATH = BASE_DIR / "station_timeseries_metadata.json"
     with open(META_PATH) as f:
         station_meta = json.load(f)
@@ -126,8 +130,8 @@ def create_app():
                 ts.unit,
                 ts.timestamp
             FROM timeseries_data ts
-            JOIN stations           s
-            ON ts.station_id = s.id    -- note: comparing strings
+            JOIN stations s
+            ON ts.station_id = s.station_id    -- note: comparing strings
             WHERE s.id IN :ids                   -- now filtering on the integer PK
             ORDER BY ts.ts_id, s.id, ts.timestamp DESC
             """)
