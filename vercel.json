@@ -6,15 +6,15 @@
       "use": "@vercel/python"
     }
   ],
-  "functions": {
-    "api/app.py": {
-      "runtime": "python3.10"
-    }
-  },
   "routes": [
     {
       "src": "/(.*)",
       "dest": "api/app.py"
     }
-  ]
+  ],
+  "functions": {
+    "api/**/*.py": {
+      "runtime": "python3.10"
+    }
+  }
 }
