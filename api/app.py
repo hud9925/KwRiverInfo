@@ -1,6 +1,5 @@
-
+from pathlib import Path
 import sys 
-
 import json
 import requests
 from flask import Flask, render_template, jsonify, request, abort
@@ -116,24 +115,27 @@ def create_app():
         ids = request.args.getlist("station_id", type=int)
         if not ids:
             return jsonify([])
+        
 
         sql = (
             text("""
             SELECT DISTINCT ON (ts.ts_id, s.id)
                 s.id            AS station_id,
+                s.name             AS station,
                 ts.ts_id        AS ts_id,
                 ts.parameter_fullname,
                 ts.value,
                 ts.unit,
                 ts.timestamp
             FROM timeseries_data ts
-            JOIN stations s
-            ON ts.station_id = s.station_id    -- note: comparing strings
+            JOIN stations           s
+            ON ts.station_id = s.id    -- note: comparing strings
             WHERE s.id IN :ids                   -- now filtering on the integer PK
             ORDER BY ts.ts_id, s.id, ts.timestamp DESC
             """)
             .bindparams(bindparam("ids", expanding=True))
         )
+
 
         rows = db.session.execute(sql, {"ids": ids}).fetchall()
         return jsonify([
