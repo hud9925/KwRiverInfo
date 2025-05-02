@@ -170,3 +170,5 @@ def create_app():
         return jsonify(dams)
 
     return app
+
+app = create_app()
