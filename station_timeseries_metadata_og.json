@@ -1,0 +1,2567 @@
+{
+    "14575": {
+        "station_name": "Aberfoyle",
+        "timeseries": {
+            "QR": [
+                {
+                    "ts_id": 9668042,
+                    "ts_name": "07.NRT.PRODUCTION.HOURLY",
+                    "ts_shortname": "Cmd.Rating.P"
+                }
+            ],
+            "HG": [
+                {
+                    "ts_id": 12437042,
+                    "ts_name": "07.NRT.PRODUCTION.HOURLY",
+                    "ts_shortname": "h.Cmd.P"
+                },
+                {
+                    "ts_id": 29910042,
+                    "ts_name": "07.NRT.PRODUCTION.PBI",
+                    "ts_shortname": "Cmd.P"
+                }
+            ],
+            "TW": [
+                {
+                    "ts_id": 24422042,
+                    "ts_name": "07.NRT.PRODUCTION.HOURLY",
+                    "ts_shortname": "h.Cmd"
+                },
+                {
+                    "ts_id": 29866042,
+                    "ts_name": "07.NRT.PRODUCTION.PBI",
+                    "ts_shortname": "Cmd.P"
+                }
+            ]
+        }
+    },
+    "14512": {
+        "station_name": "Armstrong Mills",
+        "timeseries": {
+            "QR": [
+                {
+                    "ts_id": 8911042,
+                    "ts_name": "07.NRT.PRODUCTION.HOURLY",
+                    "ts_shortname": "Cmd.Rating.P"
+                }
+            ],
+            "HG": [
+                {
+                    "ts_id": 12247042,
+                    "ts_name": "07.NRT.PRODUCTION.HOURLY",
+                    "ts_shortname": "h.Cmd.P"
+                },
+                {
+                    "ts_id": 29927042,
+                    "ts_name": "07.NRT.PRODUCTION.PBI",
+                    "ts_shortname": "Cmd.P"
+                }
+            ],
+            "TA": [
+                {
+                    "ts_id": 12290042,
+                    "ts_name": "07.NRT.PRODUCTION.HOURLY",
+                    "ts_shortname": "h.Cmd.P"
+                }
+            ]
+        }
+    },
+    "14447": {
+        "station_name": "Arthur Climate Station",
+        "timeseries": {
+            "TA": [
+                {
+                    "ts_id": 12250042,
+                    "ts_name": "07.NRT.PRODUCTION.HOURLY",
+                    "ts_shortname": "h.Cmd.P"
+                }
+            ],
+            "PN": [
+                {
+                    "ts_id": 12460042,
+                    "ts_name": "07.NRT.PRODUCTION.HOURLY",
+                    "ts_shortname": "h.Cmd.P"
+                }
+            ]
+        }
+    },
+    "14856": {
+        "station_name": "Ayr",
+        "timeseries": {
+            "QR": [
+                {
+                    "ts_id": 8821042,
+                    "ts_name": "07.NRT.PRODUCTION.HOURLY",
+                    "ts_shortname": "Cmd.Rating.P"
+                }
+            ],
+            "HG": [
+                {
+                    "ts_id": 12244042,
+                    "ts_name": "07.NRT.PRODUCTION.HOURLY",
+                    "ts_shortname": "h.Cmd.P"
+                },
+                {
+                    "ts_id": 29915042,
+                    "ts_name": "07.NRT.PRODUCTION.PBI",
+                    "ts_shortname": "Cmd.P"
+                }
+            ]
+        }
+    },
+    "14718": {
+        "station_name": "Baden Climate Station",
+        "timeseries": {
+            "PN": [
+                {
+                    "ts_id": 11232042,
+                    "ts_name": "07.NRT.PRODUCTION.HOURLY",
+                    "ts_shortname": "h.Cmd.P"
+                }
+            ],
+            "TA": [
+                {
+                    "ts_id": 12253042,
+                    "ts_name": "07.NRT.PRODUCTION.HOURLY",
+                    "ts_shortname": "h.Cmd.P"
+                }
+            ]
+        }
+    },
+    "14534": {
+        "station_name": "Beaverdale",
+        "timeseries": {
+            "QR": [
+                {
+                    "ts_id": 8863042,
+                    "ts_name": "07.NRT.PRODUCTION.HOURLY",
+                    "ts_shortname": "Cmd.Rating.P"
+                }
+            ],
+            "HG": [
+                {
+                    "ts_id": 12248042,
+                    "ts_name": "07.NRT.PRODUCTION.HOURLY",
+                    "ts_shortname": "h.Cmd.P"
+                },
+                {
+                    "ts_id": 29921042,
+                    "ts_name": "07.NRT.PRODUCTION.PBI",
+                    "ts_shortname": "Cmd.P"
+                }
+            ],
+            "TA": [
+                {
+                    "ts_id": 12291042,
+                    "ts_name": "07.NRT.PRODUCTION.HOURLY",
+                    "ts_shortname": "h.Cmd.P"
+                }
+            ]
+        }
+    },
+    "15162": {
+        "station_name": "Below Elmira",
+        "timeseries": {
+            "QR": [
+                {
+                    "ts_id": 8599042,
+                    "ts_name": "07.NRT.PRODUCTION.HOURLY",
+                    "ts_shortname": "Cmd.Rating.P"
+                }
+            ],
+            "HG": [
+                {
+                    "ts_id": 12227042,
+                    "ts_name": "07.NRT.PRODUCTION.HOURLY",
+                    "ts_shortname": "h.Cmd.P"
+                }
+            ]
+        }
+    },
+    "14440": {
+        "station_name": "Below Shand",
+        "timeseries": {
+            "QR": [
+                {
+                    "ts_id": 8743042,
+                    "ts_name": "07.NRT.PRODUCTION.HOURLY",
+                    "ts_shortname": "Cmd.Rating.P"
+                }
+            ],
+            "HG": [
+                {
+                    "ts_id": 12241042,
+                    "ts_name": "07.NRT.PRODUCTION.HOURLY",
+                    "ts_shortname": "h.Cmd.P"
+                },
+                {
+                    "ts_id": 29899042,
+                    "ts_name": "07.NRT.PRODUCTION.PBI",
+                    "ts_shortname": "Cmd.P"
+                }
+            ]
+        }
+    },
+    "15355": {
+        "station_name": "Below Shand WQ Station",
+        "timeseries": {
+            "WP": [
+                {
+                    "ts_id": 11571042,
+                    "ts_name": "07.NRT.PRODUCTION.HOURLY",
+                    "ts_shortname": "h.Cmd.P"
+                },
+                {
+                    "ts_id": 29823042,
+                    "ts_name": "07.NRT.PRODUCTION.PBI",
+                    "ts_shortname": "Cmd.P"
+                }
+            ],
+            "WO": [
+                {
+                    "ts_id": 12156042,
+                    "ts_name": "07.NRT.PRODUCTION.HOURLY",
+                    "ts_shortname": "h.Cmd.P"
+                },
+                {
+                    "ts_id": 29840042,
+                    "ts_name": "07.NRT.PRODUCTION.PBI",
+                    "ts_shortname": "Cmd.P"
+                }
+            ],
+            "TW": [
+                {
+                    "ts_id": 16162042,
+                    "ts_name": "07.NRT.PRODUCTION.HOURLY",
+                    "ts_shortname": "h.Cmd.P"
+                },
+                {
+                    "ts_id": 29860042,
+                    "ts_name": "07.NRT.PRODUCTION.PBI",
+                    "ts_shortname": "Cmd.P"
+                }
+            ],
+            "WC": [
+                {
+                    "ts_id": 16368042,
+                    "ts_name": "07.NRT.PRODUCTION.HOURLY",
+                    "ts_shortname": "h.Cmd.P"
+                },
+                {
+                    "ts_id": 29832042,
+                    "ts_name": "07.NRT.PRODUCTION.PBI",
+                    "ts_shortname": "Cmd.P"
+                }
+            ],
+            "WT": [
+                {
+                    "ts_id": 16382042,
+                    "ts_name": "07.NRT.PRODUCTION.HOURLY",
+                    "ts_shortname": "h.Cmd.P"
+                },
+                {
+                    "ts_id": 29851042,
+                    "ts_name": "07.NRT.PRODUCTION.PBI",
+                    "ts_shortname": "Cmd.P"
+                }
+            ]
+        }
+    },
+    "15177": {
+        "station_name": "Blair WQ Station",
+        "timeseries": {
+            "WP": [
+                {
+                    "ts_id": 11577042,
+                    "ts_name": "07.NRT.PRODUCTION.HOURLY",
+                    "ts_shortname": "h.Cmd.P"
+                },
+                {
+                    "ts_id": 29818042,
+                    "ts_name": "07.NRT.PRODUCTION.PBI",
+                    "ts_shortname": "Cmd.P"
+                }
+            ],
+            "TW": [
+                {
+                    "ts_id": 16159042,
+                    "ts_name": "07.NRT.PRODUCTION.HOURLY",
+                    "ts_shortname": "h.Cmd.P"
+                },
+                {
+                    "ts_id": 29854042,
+                    "ts_name": "07.NRT.PRODUCTION.PBI",
+                    "ts_shortname": "Cmd.P"
+                }
+            ],
+            "WT": [
+                {
+                    "ts_id": 16386042,
+                    "ts_name": "07.NRT.PRODUCTION.HOURLY",
+                    "ts_shortname": "h.Cmd.P"
+                },
+                {
+                    "ts_id": 29845042,
+                    "ts_name": "07.NRT.PRODUCTION.PBI",
+                    "ts_shortname": "Cmd.P"
+                }
+            ],
+            "WC": [
+                {
+                    "ts_id": 17155042,
+                    "ts_name": "07.NRT.PRODUCTION.HOURLY",
+                    "ts_shortname": "h.Cmd.P"
+                },
+                {
+                    "ts_id": 29826042,
+                    "ts_name": "07.NRT.PRODUCTION.PBI",
+                    "ts_shortname": "Cmd.P"
+                }
+            ]
+        }
+    },
+    "14610": {
+        "station_name": "Brant Climate Station",
+        "timeseries": {
+            "PN": [
+                {
+                    "ts_id": 11238042,
+                    "ts_name": "07.NRT.PRODUCTION.HOURLY",
+                    "ts_shortname": "h.Cmd.P"
+                }
+            ],
+            "TA": [
+                {
+                    "ts_id": 12255042,
+                    "ts_name": "07.NRT.PRODUCTION.HOURLY",
+                    "ts_shortname": "h.Cmd.P"
+                }
+            ]
+        }
+    },
+    "15200": {
+        "station_name": "Brant WQ Station",
+        "timeseries": {
+            "WP": [
+                {
+                    "ts_id": 11579042,
+                    "ts_name": "07.NRT.PRODUCTION.HOURLY",
+                    "ts_shortname": "h.Cmd.P"
+                },
+                {
+                    "ts_id": 29819042,
+                    "ts_name": "07.NRT.PRODUCTION.PBI",
+                    "ts_shortname": "Cmd.P"
+                }
+            ],
+            "QR": [
+                {
+                    "ts_id": 11594042,
+                    "ts_name": "07.NRT.PRODUCTION.HOURLY",
+                    "ts_shortname": "Cmd.Rating.P"
+                }
+            ],
+            "WO": [
+                {
+                    "ts_id": 12138042,
+                    "ts_name": "07.NRT.PRODUCTION.HOURLY",
+                    "ts_shortname": "h.Cmd.P"
+                },
+                {
+                    "ts_id": 29835042,
+                    "ts_name": "07.NRT.PRODUCTION.PBI",
+                    "ts_shortname": "Cmd.P"
+                }
+            ],
+            "HG": [
+                {
+                    "ts_id": 12236042,
+                    "ts_name": "07.NRT.PRODUCTION.HOURLY",
+                    "ts_shortname": "h.Cmd.P"
+                },
+                {
+                    "ts_id": 29887042,
+                    "ts_name": "07.NRT.PRODUCTION.PBI",
+                    "ts_shortname": "Cmd.P"
+                }
+            ],
+            "TW": [
+                {
+                    "ts_id": 16393042,
+                    "ts_name": "07.NRT.PRODUCTION.HOURLY",
+                    "ts_shortname": "h.Cmd.P"
+                },
+                {
+                    "ts_id": 29855042,
+                    "ts_name": "07.NRT.PRODUCTION.PBI",
+                    "ts_shortname": "Cmd.P"
+                }
+            ],
+            "WC": [
+                {
+                    "ts_id": 16397042,
+                    "ts_name": "07.NRT.PRODUCTION.HOURLY",
+                    "ts_shortname": "h.Cmd.P"
+                },
+                {
+                    "ts_id": 29827042,
+                    "ts_name": "07.NRT.PRODUCTION.PBI",
+                    "ts_shortname": "Cmd.P"
+                }
+            ],
+            "WT": [
+                {
+                    "ts_id": 16411042,
+                    "ts_name": "07.NRT.PRODUCTION.HOURLY",
+                    "ts_shortname": "h.Cmd.P"
+                },
+                {
+                    "ts_id": 29846042,
+                    "ts_name": "07.NRT.PRODUCTION.PBI",
+                    "ts_shortname": "Cmd.P"
+                }
+            ],
+            "W-NO3": [
+                {
+                    "ts_id": 17777042,
+                    "ts_name": "07.NRT.PRODUCTION",
+                    "ts_shortname": "Cmd.P-2"
+                },
+                {
+                    "ts_id": 29843042,
+                    "ts_name": "07.NRT.PRODUCTION.PBI",
+                    "ts_shortname": "Cmd.P"
+                }
+            ]
+        }
+    },
+    "14547": {
+        "station_name": "Brantford",
+        "timeseries": {
+            "HG": [
+                {
+                    "ts_id": 12235042,
+                    "ts_name": "07.NRT.PRODUCTION.HOURLY",
+                    "ts_shortname": "h.Cmd.P"
+                },
+                {
+                    "ts_id": 29886042,
+                    "ts_name": "07.NRT.PRODUCTION.PBI",
+                    "ts_shortname": "Cmd.P"
+                }
+            ]
+        }
+    },
+    "14811": {
+        "station_name": "Bridgeport",
+        "timeseries": {
+            "QR": [
+                {
+                    "ts_id": 8665042,
+                    "ts_name": "07.NRT.PRODUCTION.HOURLY",
+                    "ts_shortname": "Cmd.Rating.P"
+                }
+            ],
+            "HG": [
+                {
+                    "ts_id": 12237042,
+                    "ts_name": "07.NRT.PRODUCTION.HOURLY",
+                    "ts_shortname": "h.Cmd.P"
+                },
+                {
+                    "ts_id": 29888042,
+                    "ts_name": "07.NRT.PRODUCTION.PBI",
+                    "ts_shortname": "Cmd.P"
+                }
+            ]
+        }
+    },
+    "15218": {
+        "station_name": "Bridgeport WQ Station",
+        "timeseries": {
+            "QR": [
+                {
+                    "ts_id": 8701042,
+                    "ts_name": "07.NRT.PRODUCTION.HOURLY",
+                    "ts_shortname": "Cmd.Rating.P"
+                }
+            ],
+            "PN": [
+                {
+                    "ts_id": 11272042,
+                    "ts_name": "07.NRT.PRODUCTION.HOURLY",
+                    "ts_shortname": "h.Cmd.P"
+                }
+            ],
+            "WP": [
+                {
+                    "ts_id": 11583042,
+                    "ts_name": "07.NRT.PRODUCTION.HOURLY",
+                    "ts_shortname": "h.Cmd.P"
+                },
+                {
+                    "ts_id": 29821042,
+                    "ts_name": "07.NRT.PRODUCTION.PBI",
+                    "ts_shortname": "Cmd.P"
+                }
+            ],
+            "HG": [
+                {
+                    "ts_id": 12240042,
+                    "ts_name": "07.NRT.PRODUCTION.HOURLY",
+                    "ts_shortname": "h.Cmd.P"
+                },
+                {
+                    "ts_id": 29893042,
+                    "ts_name": "07.NRT.PRODUCTION.PBI",
+                    "ts_shortname": "Cmd.P"
+                }
+            ],
+            "TW": [
+                {
+                    "ts_id": 16155042,
+                    "ts_name": "07.NRT.PRODUCTION.HOURLY",
+                    "ts_shortname": "h.Cmd.P"
+                },
+                {
+                    "ts_id": 29857042,
+                    "ts_name": "07.NRT.PRODUCTION.PBI",
+                    "ts_shortname": "Cmd.P"
+                }
+            ],
+            "W-NO3": [
+                {
+                    "ts_id": 16165042,
+                    "ts_name": "07.NRT.PRODUCTION",
+                    "ts_shortname": "Cmd.P-2"
+                },
+                {
+                    "ts_id": 29844042,
+                    "ts_name": "07.NRT.PRODUCTION.PBI",
+                    "ts_shortname": "Cmd.P"
+                }
+            ],
+            "WC": [
+                {
+                    "ts_id": 16351042,
+                    "ts_name": "07.NRT.PRODUCTION.HOURLY",
+                    "ts_shortname": "h.Cmd.P"
+                },
+                {
+                    "ts_id": 29829042,
+                    "ts_name": "07.NRT.PRODUCTION.PBI",
+                    "ts_shortname": "Cmd.P"
+                }
+            ],
+            "WO": [
+                {
+                    "ts_id": 16355042,
+                    "ts_name": "07.NRT.PRODUCTION.HOURLY",
+                    "ts_shortname": "h.Cmd.P"
+                },
+                {
+                    "ts_id": 29837042,
+                    "ts_name": "07.NRT.PRODUCTION.PBI",
+                    "ts_shortname": "Cmd.P"
+                }
+            ],
+            "WT": [
+                {
+                    "ts_id": 29848042,
+                    "ts_name": "07.NRT.PRODUCTION.PBI",
+                    "ts_shortname": "Cmd.P"
+                }
+            ]
+        }
+    },
+    "35980": {
+        "station_name": "Burford Climate Station",
+        "timeseries": {
+            "TA": [
+                {
+                    "ts_id": 12257042,
+                    "ts_name": "07.NRT.PRODUCTION.HOURLY",
+                    "ts_shortname": "h.Cmd.P"
+                }
+            ],
+            "PN": [
+                {
+                    "ts_id": 12464042,
+                    "ts_name": "07.NRT.PRODUCTION.HOURLY",
+                    "ts_shortname": "h.Cmd.P"
+                }
+            ],
+            "UD": [
+                {
+                    "ts_id": 14178042,
+                    "ts_name": "07.NRT.PRODUCTION.HOURLY",
+                    "ts_shortname": "Cmd.P"
+                }
+            ],
+            "US": [
+                {
+                    "ts_id": 14180042,
+                    "ts_name": "07.NRT.PRODUCTION.HOURLY",
+                    "ts_shortname": "Cmd.P"
+                }
+            ]
+        }
+    },
+    "14624": {
+        "station_name": "Burford Nursery",
+        "timeseries": {
+            "PN": [
+                {
+                    "ts_id": 11255042,
+                    "ts_name": "07.NRT.PRODUCTION.HOURLY",
+                    "ts_shortname": "h.Cmd.P"
+                }
+            ],
+            "TA": [
+                {
+                    "ts_id": 12256042,
+                    "ts_name": "07.NRT.PRODUCTION.HOURLY",
+                    "ts_shortname": "h.Cmd.P"
+                }
+            ]
+        }
+    },
+    "14803": {
+        "station_name": "Byng Island Climate Station",
+        "timeseries": {
+            "PN": [
+                {
+                    "ts_id": 11257042,
+                    "ts_name": "07.NRT.PRODUCTION.HOURLY",
+                    "ts_shortname": "h.Cmd.P"
+                }
+            ],
+            "TA": [
+                {
+                    "ts_id": 12258042,
+                    "ts_name": "07.NRT.PRODUCTION.HOURLY",
+                    "ts_shortname": "h.Cmd.P"
+                }
+            ]
+        }
+    },
+    "14861": {
+        "station_name": "Canning",
+        "timeseries": {
+            "QR": [
+                {
+                    "ts_id": 8845042,
+                    "ts_name": "07.NRT.PRODUCTION.HOURLY",
+                    "ts_shortname": "Cmd.Rating.P"
+                }
+            ],
+            "HG": [
+                {
+                    "ts_id": 12243042,
+                    "ts_name": "07.NRT.PRODUCTION.HOURLY",
+                    "ts_shortname": "h.Cmd.P"
+                },
+                {
+                    "ts_id": 29918042,
+                    "ts_name": "07.NRT.PRODUCTION.PBI",
+                    "ts_shortname": "Cmd.P"
+                }
+            ]
+        }
+    },
+    "15012": {
+        "station_name": "Clair Creek",
+        "timeseries": {
+            "QR": [
+                {
+                    "ts_id": 8617042,
+                    "ts_name": "07.NRT.PRODUCTION.HOURLY",
+                    "ts_shortname": "Cmd.Rating.P"
+                }
+            ],
+            "HG": [
+                {
+                    "ts_id": 12229042,
+                    "ts_name": "07.NRT.PRODUCTION.HOURLY",
+                    "ts_shortname": "h.Cmd.P"
+                },
+                {
+                    "ts_id": 29878042,
+                    "ts_name": "07.NRT.PRODUCTION.PBI",
+                    "ts_shortname": "Cmd.P"
+                }
+            ]
+        }
+    },
+    "14929": {
+        "station_name": "Conestogo Climate Station",
+        "timeseries": {
+            "PN": [
+                {
+                    "ts_id": 11265042,
+                    "ts_name": "07.NRT.PRODUCTION.HOURLY",
+                    "ts_shortname": "h.Cmd.P"
+                },
+                {
+                    "ts_id": 15355042,
+                    "ts_name": "07.MANUAL.PRODUCTION.DAILY",
+                    "ts_shortname": "Cmd.EX"
+                }
+            ],
+            "TA": [
+                {
+                    "ts_id": 12262042,
+                    "ts_name": "07.NRT.PRODUCTION.HOURLY",
+                    "ts_shortname": "h.Cmd.P"
+                }
+            ],
+            "UD": [
+                {
+                    "ts_id": 14170042,
+                    "ts_name": "07.NRT.PRODUCTION.HOURLY",
+                    "ts_shortname": "Cmd.P"
+                }
+            ],
+            "US": [
+                {
+                    "ts_id": 14172042,
+                    "ts_name": "07.NRT.PRODUCTION.HOURLY",
+                    "ts_shortname": "Cmd.P"
+                }
+            ],
+            "SF": [
+                {
+                    "ts_id": 16164042,
+                    "ts_name": "07.MANUAL.PRODUCTION.DAILY",
+                    "ts_shortname": "Cmd.REPORT.P"
+                }
+            ]
+        }
+    },
+    "14908": {
+        "station_name": "Conestogo Dam",
+        "timeseries": {
+            "LS": [
+                {
+                    "ts_id": 11190042,
+                    "ts_name": "07.NRT.PRODUCTION.HOURLY",
+                    "ts_shortname": "Cmd.Rating.P"
+                }
+            ],
+            "HK": [
+                {
+                    "ts_id": 11389042,
+                    "ts_name": "07.NRT.PRODUCTION.HOURLY",
+                    "ts_shortname": "h.Cmd.P"
+                }
+            ],
+            "QT": [
+                {
+                    "ts_id": 14146042,
+                    "ts_name": "07.NRT.PRODUCTION.HOURLY",
+                    "ts_shortname": "Cmd.P"
+                }
+            ]
+        }
+    },
+    "41576": {
+        "station_name": "Dickie Settlement Road",
+        "timeseries": {
+            "QR": [
+                {
+                    "ts_id": 12639042,
+                    "ts_name": "07.NRT.PRODUCTION.HOURLY",
+                    "ts_shortname": "Cmd.Rating.P"
+                }
+            ],
+            "TW": [
+                {
+                    "ts_id": 24415042,
+                    "ts_name": "07.NRT.PRODUCTION.HOURLY",
+                    "ts_shortname": "h.Cmd"
+                },
+                {
+                    "ts_id": 29867042,
+                    "ts_name": "07.NRT.PRODUCTION.PBI",
+                    "ts_shortname": "Cmd.P"
+                }
+            ]
+        }
+    },
+    "14816": {
+        "station_name": "Doon",
+        "timeseries": {
+            "QR": [
+                {
+                    "ts_id": 8677042,
+                    "ts_name": "07.NRT.PRODUCTION.HOURLY",
+                    "ts_shortname": "Cmd.Rating.P"
+                }
+            ],
+            "HG": [
+                {
+                    "ts_id": 12238042,
+                    "ts_name": "07.NRT.PRODUCTION.HOURLY",
+                    "ts_shortname": "h.Cmd.P"
+                },
+                {
+                    "ts_id": 29890042,
+                    "ts_name": "07.NRT.PRODUCTION.PBI",
+                    "ts_shortname": "Cmd.P"
+                }
+            ]
+        }
+    },
+    "14913": {
+        "station_name": "Drayton",
+        "timeseries": {
+            "QR": [
+                {
+                    "ts_id": 8629042,
+                    "ts_name": "07.NRT.PRODUCTION.HOURLY",
+                    "ts_shortname": "Cmd.Rating.P"
+                }
+            ],
+            "HG": [
+                {
+                    "ts_id": 12231042,
+                    "ts_name": "07.NRT.PRODUCTION.HOURLY",
+                    "ts_shortname": "h.Cmd.P"
+                },
+                {
+                    "ts_id": 29881042,
+                    "ts_name": "07.NRT.PRODUCTION.PBI",
+                    "ts_shortname": "Cmd.P"
+                }
+            ]
+        }
+    },
+    "14519": {
+        "station_name": "Dundalk",
+        "timeseries": {
+            "QR": [
+                {
+                    "ts_id": 8749042,
+                    "ts_name": "07.NRT.PRODUCTION.HOURLY",
+                    "ts_shortname": "Cmd.Rating.P"
+                }
+            ],
+            "HG": [
+                {
+                    "ts_id": 12242042,
+                    "ts_name": "07.NRT.PRODUCTION.HOURLY",
+                    "ts_shortname": "h.Cmd.P"
+                },
+                {
+                    "ts_id": 29900042,
+                    "ts_name": "07.NRT.PRODUCTION.PBI",
+                    "ts_shortname": "Cmd.P"
+                }
+            ],
+            "TA": [
+                {
+                    "ts_id": 12277042,
+                    "ts_name": "07.NRT.PRODUCTION.HOURLY",
+                    "ts_shortname": "h.Cmd.P"
+                }
+            ]
+        }
+    },
+    "15074": {
+        "station_name": "Dundalk Climate Station",
+        "timeseries": {
+            "PN": [
+                {
+                    "ts_id": 11280042,
+                    "ts_name": "07.NRT.PRODUCTION.HOURLY",
+                    "ts_shortname": "h.Cmd.P"
+                }
+            ],
+            "TA": [
+                {
+                    "ts_id": 12278042,
+                    "ts_name": "07.NRT.PRODUCTION.HOURLY",
+                    "ts_shortname": "h.Cmd.P"
+                }
+            ]
+        }
+    },
+    "14786": {
+        "station_name": "Dunnville upstream Weir 3",
+        "timeseries": {
+            "QR": [
+                {
+                    "ts_id": 8683042,
+                    "ts_name": "07.NRT.PRODUCTION.HOURLY",
+                    "ts_shortname": "Cmd.Rating.P"
+                }
+            ],
+            "HG": [
+                {
+                    "ts_id": 12239042,
+                    "ts_name": "07.NRT.PRODUCTION.HOURLY",
+                    "ts_shortname": "h.Cmd.P"
+                },
+                {
+                    "ts_id": 29891042,
+                    "ts_name": "07.NRT.PRODUCTION.PBI",
+                    "ts_shortname": "Cmd.P"
+                }
+            ]
+        }
+    },
+    "15157": {
+        "station_name": "Elmira",
+        "timeseries": {
+            "QR": [
+                {
+                    "ts_id": 8593042,
+                    "ts_name": "07.NRT.PRODUCTION.HOURLY",
+                    "ts_shortname": "Cmd.Rating.P"
+                }
+            ],
+            "HG": [
+                {
+                    "ts_id": 12226042,
+                    "ts_name": "07.NRT.PRODUCTION.HOURLY",
+                    "ts_shortname": "h.Cmd.P"
+                },
+                {
+                    "ts_id": 29873042,
+                    "ts_name": "07.NRT.PRODUCTION.PBI",
+                    "ts_shortname": "Cmd.P"
+                }
+            ]
+        }
+    },
+    "14459": {
+        "station_name": "Elora Climate Station",
+        "timeseries": {
+            "PN": [
+                {
+                    "ts_id": 11267042,
+                    "ts_name": "07.NRT.PRODUCTION.HOURLY",
+                    "ts_shortname": "h.Cmd.P"
+                }
+            ]
+        }
+    },
+    "14838": {
+        "station_name": "Eramosa",
+        "timeseries": {
+            "QR": [
+                {
+                    "ts_id": 8647042,
+                    "ts_name": "07.NRT.PRODUCTION.HOURLY",
+                    "ts_shortname": "Cmd.Rating.P"
+                }
+            ],
+            "HG": [
+                {
+                    "ts_id": 12234042,
+                    "ts_name": "07.NRT.PRODUCTION.HOURLY",
+                    "ts_shortname": "h.Cmd.P"
+                },
+                {
+                    "ts_id": 29884042,
+                    "ts_name": "07.NRT.PRODUCTION.PBI",
+                    "ts_shortname": "Cmd.P"
+                }
+            ]
+        }
+    },
+    "15007": {
+        "station_name": "Erbsville",
+        "timeseries": {
+            "QR": [
+                {
+                    "ts_id": 8785042,
+                    "ts_name": "07.NRT.PRODUCTION.HOURLY",
+                    "ts_shortname": "Cmd.Rating.P"
+                }
+            ],
+            "HG": [
+                {
+                    "ts_id": 10119042,
+                    "ts_name": "07.NRT.PRODUCTION.HOURLY",
+                    "ts_shortname": "h.Cmd.P"
+                },
+                {
+                    "ts_id": 29907042,
+                    "ts_name": "07.NRT.PRODUCTION.PBI",
+                    "ts_shortname": "Cmd.P"
+                }
+            ]
+        }
+    },
+    "17772": {
+        "station_name": "Fairchild near Brantford",
+        "timeseries": {
+            "HG": [
+                {
+                    "ts_id": 10141042,
+                    "ts_name": "07.NRT.PRODUCTION.HOURLY",
+                    "ts_shortname": "h.Cmd.P"
+                },
+                {
+                    "ts_id": 29885042,
+                    "ts_name": "07.NRT.PRODUCTION.PBI",
+                    "ts_shortname": "Cmd.P"
+                }
+            ],
+            "QR": [
+                {
+                    "ts_id": 11383042,
+                    "ts_name": "07.NRT.PRODUCTION.HOURLY",
+                    "ts_shortname": "Cmd.Rating.P"
+                }
+            ],
+            "PN": [
+                {
+                    "ts_id": 12526042,
+                    "ts_name": "07.NRT.PRODUCTION.HOURLY",
+                    "ts_shortname": "h.Cmd.P"
+                }
+            ]
+        }
+    },
+    "17625": {
+        "station_name": "Floradale",
+        "timeseries": {
+            "QR": [
+                {
+                    "ts_id": 9808042,
+                    "ts_name": "07.NRT.PRODUCTION.HOURLY",
+                    "ts_shortname": "Cmd.Rating.P"
+                }
+            ],
+            "HG": [
+                {
+                    "ts_id": 10140042,
+                    "ts_name": "07.NRT.PRODUCTION.HOURLY",
+                    "ts_shortname": "h.Cmd.P"
+                },
+                {
+                    "ts_id": 29874042,
+                    "ts_name": "07.NRT.PRODUCTION.PBI",
+                    "ts_shortname": "Cmd.P"
+                }
+            ]
+        }
+    },
+    "14821": {
+        "station_name": "Galt",
+        "timeseries": {
+            "QR": [
+                {
+                    "ts_id": 8671042,
+                    "ts_name": "07.NRT.PRODUCTION.HOURLY",
+                    "ts_shortname": "Cmd.Rating.P"
+                }
+            ],
+            "HG": [
+                {
+                    "ts_id": 10104042,
+                    "ts_name": "07.NRT.PRODUCTION.HOURLY",
+                    "ts_shortname": "h.Cmd.P"
+                },
+                {
+                    "ts_id": 29889042,
+                    "ts_name": "07.NRT.PRODUCTION.PBI",
+                    "ts_shortname": "Cmd.P"
+                }
+            ]
+        }
+    },
+    "14895": {
+        "station_name": "Glen Allan",
+        "timeseries": {
+            "QR": [
+                {
+                    "ts_id": 8635042,
+                    "ts_name": "07.NRT.PRODUCTION.HOURLY",
+                    "ts_shortname": "Cmd.Rating.P"
+                }
+            ],
+            "HG": [
+                {
+                    "ts_id": 10114042,
+                    "ts_name": "07.NRT.PRODUCTION.HOURLY",
+                    "ts_shortname": "h.Cmd.P"
+                },
+                {
+                    "ts_id": 29882042,
+                    "ts_name": "07.NRT.PRODUCTION.PBI",
+                    "ts_shortname": "Cmd.P"
+                }
+            ]
+        }
+    },
+    "15241": {
+        "station_name": "Glen Morris WQ Station",
+        "timeseries": {
+            "PN": [
+                {
+                    "ts_id": 11638042,
+                    "ts_name": "07.NRT.PRODUCTION.HOURLY",
+                    "ts_shortname": "h.Cmd.P"
+                }
+            ],
+            "WO": [
+                {
+                    "ts_id": 12144042,
+                    "ts_name": "07.NRT.PRODUCTION.HOURLY",
+                    "ts_shortname": "h.Cmd.P"
+                },
+                {
+                    "ts_id": 29836042,
+                    "ts_name": "07.NRT.PRODUCTION.PBI",
+                    "ts_shortname": "Cmd.P"
+                }
+            ],
+            "WP": [
+                {
+                    "ts_id": 14140042,
+                    "ts_name": "07.NRT.PRODUCTION.HOURLY",
+                    "ts_shortname": "h.Cmd.P"
+                },
+                {
+                    "ts_id": 29820042,
+                    "ts_name": "07.NRT.PRODUCTION.PBI",
+                    "ts_shortname": "Cmd.P"
+                }
+            ],
+            "TW": [
+                {
+                    "ts_id": 16415042,
+                    "ts_name": "07.NRT.PRODUCTION.HOURLY",
+                    "ts_shortname": "h.Cmd.P"
+                },
+                {
+                    "ts_id": 29856042,
+                    "ts_name": "07.NRT.PRODUCTION.PBI",
+                    "ts_shortname": "Cmd.P"
+                }
+            ],
+            "WC": [
+                {
+                    "ts_id": 16419042,
+                    "ts_name": "07.NRT.PRODUCTION.HOURLY",
+                    "ts_shortname": "h.Cmd.P"
+                },
+                {
+                    "ts_id": 29828042,
+                    "ts_name": "07.NRT.PRODUCTION.PBI",
+                    "ts_shortname": "Cmd.P"
+                }
+            ],
+            "WT": [
+                {
+                    "ts_id": 16433042,
+                    "ts_name": "07.NRT.PRODUCTION.HOURLY",
+                    "ts_shortname": "h.Cmd.P"
+                },
+                {
+                    "ts_id": 29847042,
+                    "ts_name": "07.NRT.PRODUCTION.PBI",
+                    "ts_shortname": "Cmd.P"
+                }
+            ]
+        }
+    },
+    "14994": {
+        "station_name": "Guelph Lake Climate Station",
+        "timeseries": {
+            "PN": [
+                {
+                    "ts_id": 11220042,
+                    "ts_name": "07.NRT.PRODUCTION.HOURLY",
+                    "ts_shortname": "h.Cmd.P"
+                },
+                {
+                    "ts_id": 15358042,
+                    "ts_name": "07.MANUAL.PRODUCTION.DAILY",
+                    "ts_shortname": "Cmd.EX"
+                }
+            ],
+            "TA": [
+                {
+                    "ts_id": 12293042,
+                    "ts_name": "07.NRT.PRODUCTION.HOURLY",
+                    "ts_shortname": "h.Cmd.P"
+                }
+            ],
+            "SF": [
+                {
+                    "ts_id": 24527042,
+                    "ts_name": "07.MANUAL.PRODUCTION.DAILY",
+                    "ts_shortname": "Cmd.REPORT.P"
+                }
+            ]
+        }
+    },
+    "14977": {
+        "station_name": "Guelph Lake Dam",
+        "timeseries": {
+            "HK": [
+                {
+                    "ts_id": 11391042,
+                    "ts_name": "07.NRT.PRODUCTION.HOURLY",
+                    "ts_shortname": "h.Cmd.P"
+                }
+            ],
+            "LS": [
+                {
+                    "ts_id": 11644042,
+                    "ts_name": "07.NRT.PRODUCTION.HOURLY",
+                    "ts_shortname": "Cmd.Rating.P"
+                }
+            ],
+            "QT": [
+                {
+                    "ts_id": 14148042,
+                    "ts_name": "07.NRT.PRODUCTION.HOURLY",
+                    "ts_shortname": "Cmd.P"
+                }
+            ]
+        }
+    },
+    "14482": {
+        "station_name": "Hanlon",
+        "timeseries": {
+            "QR": [
+                {
+                    "ts_id": 8869042,
+                    "ts_name": "07.NRT.PRODUCTION.HOURLY",
+                    "ts_shortname": "Cmd.Rating.P"
+                }
+            ],
+            "HG": [
+                {
+                    "ts_id": 10065042,
+                    "ts_name": "07.NRT.PRODUCTION.HOURLY",
+                    "ts_shortname": "h.Cmd.P"
+                },
+                {
+                    "ts_id": 29922042,
+                    "ts_name": "07.NRT.PRODUCTION.PBI",
+                    "ts_shortname": "Cmd.P"
+                }
+            ]
+        }
+    },
+    "15262": {
+        "station_name": "Hanlon WQ Station",
+        "timeseries": {
+            "QR": [
+                {
+                    "ts_id": 8875042,
+                    "ts_name": "07.NRT.PRODUCTION.HOURLY",
+                    "ts_shortname": "Cmd.Rating.P"
+                }
+            ],
+            "HG": [
+                {
+                    "ts_id": 10134042,
+                    "ts_name": "07.NRT.PRODUCTION.HOURLY",
+                    "ts_shortname": "h.Cmd.P"
+                },
+                {
+                    "ts_id": 29923042,
+                    "ts_name": "07.NRT.PRODUCTION.PBI",
+                    "ts_shortname": "Cmd.P"
+                }
+            ],
+            "WP": [
+                {
+                    "ts_id": 11589042,
+                    "ts_name": "07.NRT.PRODUCTION.HOURLY",
+                    "ts_shortname": "h.Cmd.P"
+                },
+                {
+                    "ts_id": 29824042,
+                    "ts_name": "07.NRT.PRODUCTION.PBI",
+                    "ts_shortname": "Cmd.P"
+                }
+            ],
+            "WO": [
+                {
+                    "ts_id": 12159042,
+                    "ts_name": "07.NRT.PRODUCTION.HOURLY",
+                    "ts_shortname": "h.Cmd.P"
+                },
+                {
+                    "ts_id": 29841042,
+                    "ts_name": "07.NRT.PRODUCTION.PBI",
+                    "ts_shortname": "Cmd.P"
+                }
+            ],
+            "TW": [
+                {
+                    "ts_id": 16437042,
+                    "ts_name": "07.NRT.PRODUCTION.HOURLY",
+                    "ts_shortname": "h.Cmd.P"
+                },
+                {
+                    "ts_id": 29861042,
+                    "ts_name": "07.NRT.PRODUCTION.PBI",
+                    "ts_shortname": "Cmd.P"
+                }
+            ],
+            "WC": [
+                {
+                    "ts_id": 16441042,
+                    "ts_name": "07.NRT.PRODUCTION.HOURLY",
+                    "ts_shortname": "h.Cmd.P"
+                },
+                {
+                    "ts_id": 29833042,
+                    "ts_name": "07.NRT.PRODUCTION.PBI",
+                    "ts_shortname": "Cmd.P"
+                }
+            ],
+            "WT": [
+                {
+                    "ts_id": 16455042,
+                    "ts_name": "07.NRT.PRODUCTION.HOURLY",
+                    "ts_shortname": "h.Cmd.P"
+                },
+                {
+                    "ts_id": 29852042,
+                    "ts_name": "07.NRT.PRODUCTION.PBI",
+                    "ts_shortname": "Cmd.P"
+                }
+            ]
+        }
+    },
+    "14884": {
+        "station_name": "Head Office Climate Station",
+        "timeseries": {
+            "PN": [
+                {
+                    "ts_id": 11284042,
+                    "ts_name": "07.NRT.PRODUCTION.HOURLY",
+                    "ts_shortname": "h.Cmd.P"
+                }
+            ],
+            "PA": [
+                {
+                    "ts_id": 14162042,
+                    "ts_name": "07.NRT.PRODUCTION.HOURLY",
+                    "ts_shortname": "Cmd.P"
+                }
+            ],
+            "UD": [
+                {
+                    "ts_id": 26785042,
+                    "ts_name": "07.NRT.PRODUCTION.HOURLY",
+                    "ts_shortname": "Cmd.P"
+                }
+            ],
+            "US": [
+                {
+                    "ts_id": 26793042,
+                    "ts_name": "07.NRT.PRODUCTION.HOURLY",
+                    "ts_shortname": "Cmd.P"
+                }
+            ]
+        }
+    },
+    "14541": {
+        "station_name": "Hidden Valley",
+        "timeseries": {
+            "QR": [
+                {
+                    "ts_id": 8695042,
+                    "ts_name": "07.NRT.PRODUCTION.HOURLY",
+                    "ts_shortname": "Cmd.Rating.P"
+                }
+            ],
+            "HG": [
+                {
+                    "ts_id": 10073042,
+                    "ts_name": "07.NRT.PRODUCTION.HOURLY",
+                    "ts_shortname": "h.Cmd.P"
+                },
+                {
+                    "ts_id": 29892042,
+                    "ts_name": "07.NRT.PRODUCTION.PBI",
+                    "ts_shortname": "Cmd.P"
+                }
+            ]
+        }
+    },
+    "14554": {
+        "station_name": "Horner Creek",
+        "timeseries": {
+            "QR": [
+                {
+                    "ts_id": 10017042,
+                    "ts_name": "07.NRT.PRODUCTION.HOURLY",
+                    "ts_shortname": "Cmd.Rating.P"
+                }
+            ]
+        }
+    },
+    "15051": {
+        "station_name": "Keldon",
+        "timeseries": {
+            "QR": [
+                {
+                    "ts_id": 8767042,
+                    "ts_name": "07.NRT.PRODUCTION.HOURLY",
+                    "ts_shortname": "Cmd.Rating.P"
+                }
+            ],
+            "HG": [
+                {
+                    "ts_id": 10123042,
+                    "ts_name": "07.NRT.PRODUCTION.HOURLY",
+                    "ts_shortname": "h.Cmd.P"
+                },
+                {
+                    "ts_id": 29903042,
+                    "ts_name": "07.NRT.PRODUCTION.PBI",
+                    "ts_shortname": "Cmd.P"
+                }
+            ]
+        }
+    },
+    "15021": {
+        "station_name": "Laurel Creek Climate Station",
+        "timeseries": {
+            "PN": [
+                {
+                    "ts_id": 11282042,
+                    "ts_name": "07.NRT.PRODUCTION.HOURLY",
+                    "ts_shortname": "h.Cmd.P"
+                },
+                {
+                    "ts_id": 15361042,
+                    "ts_name": "07.MANUAL.PRODUCTION.DAILY",
+                    "ts_shortname": "Cmd.EX"
+                }
+            ],
+            "TA": [
+                {
+                    "ts_id": 12280042,
+                    "ts_name": "07.NRT.PRODUCTION.HOURLY",
+                    "ts_shortname": "h.Cmd.P"
+                }
+            ],
+            "SF": [
+                {
+                    "ts_id": 24518042,
+                    "ts_name": "07.MANUAL.PRODUCTION.DAILY",
+                    "ts_shortname": "Cmd.REPORT.P"
+                }
+            ]
+        }
+    },
+    "15002": {
+        "station_name": "Laurel Creek Dam",
+        "timeseries": {
+            "HK": [
+                {
+                    "ts_id": 11395042,
+                    "ts_name": "07.NRT.PRODUCTION.HOURLY",
+                    "ts_shortname": "h.Cmd.P"
+                },
+                {
+                    "ts_id": 30316042,
+                    "ts_name": "01.GRCA.LOGGER.NRT.SODA.HK",
+                    "ts_shortname": "Cmd.GRCA.SODA.O"
+                },
+                {
+                    "ts_id": 30317042,
+                    "ts_name": "02.NRT.Merged",
+                    "ts_shortname": "Cmd.NRT.M"
+                }
+            ],
+            "LS": [
+                {
+                    "ts_id": 11646042,
+                    "ts_name": "07.NRT.PRODUCTION.HOURLY",
+                    "ts_shortname": "Cmd.Rating.P"
+                }
+            ],
+            "QT": [
+                {
+                    "ts_id": 12654042,
+                    "ts_name": "07.NRT.PRODUCTION.HOURLY",
+                    "ts_shortname": "Cmd.P"
+                }
+            ]
+        }
+    },
+    "15056": {
+        "station_name": "Leggatt",
+        "timeseries": {
+            "QR": [
+                {
+                    "ts_id": 8755042,
+                    "ts_name": "07.NRT.PRODUCTION.HOURLY",
+                    "ts_shortname": "Cmd.Rating.P"
+                }
+            ],
+            "HG": [
+                {
+                    "ts_id": 10124042,
+                    "ts_name": "07.NRT.PRODUCTION.HOURLY",
+                    "ts_shortname": "h.Cmd.P"
+                },
+                {
+                    "ts_id": 29901042,
+                    "ts_name": "07.NRT.PRODUCTION.PBI",
+                    "ts_shortname": "Cmd.P"
+                }
+            ]
+        }
+    },
+    "15071": {
+        "station_name": "Luther Marsh Climate Station",
+        "timeseries": {
+            "PN": [
+                {
+                    "ts_id": 11253042,
+                    "ts_name": "07.NRT.PRODUCTION.HOURLY",
+                    "ts_shortname": "h.Cmd.P"
+                },
+                {
+                    "ts_id": 15364042,
+                    "ts_name": "07.MANUAL.PRODUCTION.DAILY",
+                    "ts_shortname": "Cmd.EX"
+                }
+            ],
+            "TA": [
+                {
+                    "ts_id": 12254042,
+                    "ts_name": "07.NRT.PRODUCTION.HOURLY",
+                    "ts_shortname": "h.Cmd.P"
+                }
+            ]
+        }
+    },
+    "15043": {
+        "station_name": "Luther Marsh Dam",
+        "timeseries": {
+            "HK": [
+                {
+                    "ts_id": 11396042,
+                    "ts_name": "07.NRT.PRODUCTION.HOURLY",
+                    "ts_shortname": "h.Cmd.P"
+                }
+            ],
+            "LS": [
+                {
+                    "ts_id": 11651042,
+                    "ts_name": "07.NRT.PRODUCTION.HOURLY",
+                    "ts_shortname": "Cmd.Rating.P"
+                }
+            ],
+            "QT": [
+                {
+                    "ts_id": 14150042,
+                    "ts_name": "07.NRT.PRODUCTION.HOURLY",
+                    "ts_shortname": "Cmd.P"
+                }
+            ],
+            "SF": [
+                {
+                    "ts_id": 24512042,
+                    "ts_name": "07.MANUAL.PRODUCTION.DAILY",
+                    "ts_shortname": "Cmd.REPORT.P"
+                }
+            ]
+        }
+    },
+    "14428": {
+        "station_name": "Marsville",
+        "timeseries": {
+            "QR": [
+                {
+                    "ts_id": 8761042,
+                    "ts_name": "07.NRT.PRODUCTION.HOURLY",
+                    "ts_shortname": "Cmd.Rating.P"
+                }
+            ],
+            "HG": [
+                {
+                    "ts_id": 10060042,
+                    "ts_name": "07.NRT.PRODUCTION.HOURLY",
+                    "ts_shortname": "h.Cmd.P"
+                },
+                {
+                    "ts_id": 29902042,
+                    "ts_name": "07.NRT.PRODUCTION.PBI",
+                    "ts_shortname": "Cmd.P"
+                }
+            ]
+        }
+    },
+    "14569": {
+        "station_name": "McKenzie Creek",
+        "timeseries": {
+            "QR": [
+                {
+                    "ts_id": 9992042,
+                    "ts_name": "07.NRT.PRODUCTION.HOURLY",
+                    "ts_shortname": "Cmd.Rating.P"
+                }
+            ],
+            "HG": [
+                {
+                    "ts_id": 10077042,
+                    "ts_name": "07.NRT.PRODUCTION.HOURLY",
+                    "ts_shortname": "h.Cmd.P"
+                },
+                {
+                    "ts_id": 29909042,
+                    "ts_name": "07.NRT.PRODUCTION.PBI",
+                    "ts_shortname": "Cmd.P"
+                }
+            ]
+        }
+    },
+    "14867": {
+        "station_name": "Mill Creek",
+        "timeseries": {
+            "QR": [
+                {
+                    "ts_id": 8797042,
+                    "ts_name": "07.NRT.PRODUCTION.HOURLY",
+                    "ts_shortname": "Cmd.Rating.P"
+                }
+            ],
+            "HG": [
+                {
+                    "ts_id": 10112042,
+                    "ts_name": "07.NRT.PRODUCTION.HOURLY",
+                    "ts_shortname": "h.Cmd.P"
+                },
+                {
+                    "ts_id": 29911042,
+                    "ts_name": "07.NRT.PRODUCTION.PBI",
+                    "ts_shortname": "Cmd.P"
+                }
+            ],
+            "TW": [
+                {
+                    "ts_id": 24421042,
+                    "ts_name": "07.NRT.PRODUCTION.HOURLY",
+                    "ts_shortname": "h.Cmd"
+                },
+                {
+                    "ts_id": 29865042,
+                    "ts_name": "07.NRT.PRODUCTION.PBI",
+                    "ts_shortname": "Cmd.P"
+                }
+            ]
+        }
+    },
+    "14698": {
+        "station_name": "Millbank Climate Station",
+        "timeseries": {
+            "PN": [
+                {
+                    "ts_id": 11318042,
+                    "ts_name": "07.NRT.PRODUCTION.HOURLY",
+                    "ts_shortname": "h.Cmd.P"
+                }
+            ],
+            "TA": [
+                {
+                    "ts_id": 12284042,
+                    "ts_name": "07.NRT.PRODUCTION.HOURLY",
+                    "ts_shortname": "h.Cmd.P"
+                }
+            ]
+        }
+    },
+    "14918": {
+        "station_name": "Moorefield",
+        "timeseries": {
+            "QR": [
+                {
+                    "ts_id": 8803042,
+                    "ts_name": "07.NRT.PRODUCTION.HOURLY",
+                    "ts_shortname": "Cmd.Rating.P"
+                }
+            ],
+            "HG": [
+                {
+                    "ts_id": 10116042,
+                    "ts_name": "07.NRT.PRODUCTION.HOURLY",
+                    "ts_shortname": "h.Cmd.P"
+                },
+                {
+                    "ts_id": 29912042,
+                    "ts_name": "07.NRT.PRODUCTION.PBI",
+                    "ts_shortname": "Cmd.P"
+                }
+            ],
+            "PN": [
+                {
+                    "ts_id": 23301042,
+                    "ts_name": "07.NRT.PRODUCTION.HOURLY",
+                    "ts_shortname": "h.Cmd.P"
+                }
+            ]
+        }
+    },
+    "14561": {
+        "station_name": "Mount Vernon",
+        "timeseries": {
+            "QR": [
+                {
+                    "ts_id": 8923042,
+                    "ts_name": "07.NRT.PRODUCTION.HOURLY",
+                    "ts_shortname": "Cmd.Rating.P"
+                }
+            ],
+            "HG": [
+                {
+                    "ts_id": 12438042,
+                    "ts_name": "07.NRT.PRODUCTION.HOURLY",
+                    "ts_shortname": "h.Cmd.P"
+                },
+                {
+                    "ts_id": 29929042,
+                    "ts_name": "07.NRT.PRODUCTION.PBI",
+                    "ts_shortname": "Cmd.P"
+                }
+            ],
+            "TW": [
+                {
+                    "ts_id": 24412042,
+                    "ts_name": "07.NRT.PRODUCTION.HOURLY",
+                    "ts_shortname": "h.Cmd.P"
+                },
+                {
+                    "ts_id": 29863042,
+                    "ts_name": "07.NRT.PRODUCTION.PBI",
+                    "ts_shortname": "Cmd.P"
+                }
+            ]
+        }
+    },
+    "14587": {
+        "station_name": "New Dundee Dam",
+        "timeseries": {
+            "HK": [
+                {
+                    "ts_id": 11403042,
+                    "ts_name": "07.NRT.PRODUCTION.HOURLY",
+                    "ts_shortname": "h.Cmd.P"
+                }
+            ],
+            "TA": [
+                {
+                    "ts_id": 12249042,
+                    "ts_name": "07.NRT.PRODUCTION.HOURLY",
+                    "ts_shortname": "h.Cmd.P"
+                }
+            ]
+        }
+    },
+    "41578": {
+        "station_name": "New Dundee Road",
+        "timeseries": {
+            "QR": [
+                {
+                    "ts_id": 12636042,
+                    "ts_name": "07.NRT.PRODUCTION.HOURLY",
+                    "ts_shortname": "Cmd.Rating.P"
+                }
+            ],
+            "TW": [
+                {
+                    "ts_id": 24414042,
+                    "ts_name": "07.NRT.PRODUCTION.HOURLY",
+                    "ts_shortname": "h.Cmd.P"
+                },
+                {
+                    "ts_id": 29864042,
+                    "ts_name": "07.NRT.PRODUCTION.PBI",
+                    "ts_shortname": "Cmd.P"
+                }
+            ]
+        }
+    },
+    "14487": {
+        "station_name": "New Hamburg",
+        "timeseries": {
+            "QR": [
+                {
+                    "ts_id": 8827042,
+                    "ts_name": "07.NRT.PRODUCTION.HOURLY",
+                    "ts_shortname": "Cmd.Rating.P"
+                }
+            ],
+            "HG": [
+                {
+                    "ts_id": 10066042,
+                    "ts_name": "07.NRT.PRODUCTION.HOURLY",
+                    "ts_shortname": "h.Cmd.P"
+                }
+            ]
+        }
+    },
+    "14845": {
+        "station_name": "Nithburg",
+        "timeseries": {
+            "QR": [
+                {
+                    "ts_id": 8815042,
+                    "ts_name": "07.NRT.PRODUCTION.HOURLY",
+                    "ts_shortname": "Cmd.Rating.P"
+                }
+            ],
+            "HG": [
+                {
+                    "ts_id": 10108042,
+                    "ts_name": "07.NRT.PRODUCTION.HOURLY",
+                    "ts_shortname": "h.Cmd.P"
+                },
+                {
+                    "ts_id": 29914042,
+                    "ts_name": "07.NRT.PRODUCTION.PBI",
+                    "ts_shortname": "Cmd.P"
+                }
+            ],
+            "PN": [
+                {
+                    "ts_id": 13946042,
+                    "ts_name": "07.NRT.PRODUCTION.HOURLY",
+                    "ts_shortname": "h.Cmd.P"
+                }
+            ]
+        }
+    },
+    "14724": {
+        "station_name": "Paris Climate Station",
+        "timeseries": {
+            "PN": [
+                {
+                    "ts_id": 11327042,
+                    "ts_name": "07.NRT.PRODUCTION.HOURLY",
+                    "ts_shortname": "h.Cmd.P"
+                }
+            ],
+            "TA": [
+                {
+                    "ts_id": 12269042,
+                    "ts_name": "07.NRT.PRODUCTION.HOURLY",
+                    "ts_shortname": "h.Cmd.P"
+                }
+            ]
+        }
+    },
+    "14850": {
+        "station_name": "Philipsburg",
+        "timeseries": {
+            "QR": [
+                {
+                    "ts_id": 8839042,
+                    "ts_name": "07.NRT.PRODUCTION.HOURLY",
+                    "ts_shortname": "Cmd.Rating.P"
+                }
+            ],
+            "HG": [
+                {
+                    "ts_id": 10109042,
+                    "ts_name": "07.NRT.PRODUCTION.HOURLY",
+                    "ts_shortname": "h.Cmd.P"
+                },
+                {
+                    "ts_id": 29917042,
+                    "ts_name": "07.NRT.PRODUCTION.PBI",
+                    "ts_shortname": "Cmd.P"
+                }
+            ]
+        }
+    },
+    "14678": {
+        "station_name": "Port Maitland",
+        "timeseries": {
+            "UD": [
+                {
+                    "ts_id": 14174042,
+                    "ts_name": "07.NRT.PRODUCTION.HOURLY",
+                    "ts_shortname": "Cmd.P"
+                }
+            ],
+            "US": [
+                {
+                    "ts_id": 14176042,
+                    "ts_name": "07.NRT.PRODUCTION.HOURLY",
+                    "ts_shortname": "Cmd.P"
+                }
+            ]
+        }
+    },
+    "15285": {
+        "station_name": "Road 32 WQ Station",
+        "timeseries": {
+            "QR": [
+                {
+                    "ts_id": 8893042,
+                    "ts_name": "07.NRT.PRODUCTION.HOURLY",
+                    "ts_shortname": "Cmd.Rating.P"
+                }
+            ],
+            "HG": [
+                {
+                    "ts_id": 10135042,
+                    "ts_name": "07.NRT.PRODUCTION.HOURLY",
+                    "ts_shortname": "h.Cmd.P"
+                },
+                {
+                    "ts_id": 29925042,
+                    "ts_name": "07.NRT.PRODUCTION.PBI",
+                    "ts_shortname": "Cmd.P"
+                }
+            ],
+            "PN": [
+                {
+                    "ts_id": 11290042,
+                    "ts_name": "07.NRT.PRODUCTION.HOURLY",
+                    "ts_shortname": "h.Cmd.P"
+                }
+            ],
+            "TA": [
+                {
+                    "ts_id": 12294042,
+                    "ts_name": "07.NRT.PRODUCTION.HOURLY",
+                    "ts_shortname": "h.Cmd.P"
+                }
+            ]
+        }
+    },
+    "14833": {
+        "station_name": "Salem",
+        "timeseries": {
+            "QR": [
+                {
+                    "ts_id": 8773042,
+                    "ts_name": "07.NRT.PRODUCTION.HOURLY",
+                    "ts_shortname": "Cmd.Rating.P"
+                }
+            ],
+            "HG": [
+                {
+                    "ts_id": 10106042,
+                    "ts_name": "07.NRT.PRODUCTION.HOURLY",
+                    "ts_shortname": "h.Cmd.P"
+                },
+                {
+                    "ts_id": 29906042,
+                    "ts_name": "07.NRT.PRODUCTION.PBI",
+                    "ts_shortname": "Cmd.P"
+                }
+            ]
+        }
+    },
+    "15026": {
+        "station_name": "Schneider Creek",
+        "timeseries": {
+            "QR": [
+                {
+                    "ts_id": 8857042,
+                    "ts_name": "07.NRT.PRODUCTION.HOURLY",
+                    "ts_shortname": "Cmd.Rating.P"
+                }
+            ],
+            "HG": [
+                {
+                    "ts_id": 10121042,
+                    "ts_name": "07.NRT.PRODUCTION.HOURLY",
+                    "ts_shortname": "h.Cmd.P"
+                },
+                {
+                    "ts_id": 29920042,
+                    "ts_name": "07.NRT.PRODUCTION.PBI",
+                    "ts_shortname": "Cmd.P"
+                }
+            ]
+        }
+    },
+    "15113": {
+        "station_name": "Shades Mills Dam Climate Station",
+        "timeseries": {
+            "TA": [
+                {
+                    "ts_id": 12285042,
+                    "ts_name": "07.NRT.PRODUCTION.HOURLY",
+                    "ts_shortname": "h.Cmd.P"
+                },
+                {
+                    "ts_id": 29814042,
+                    "ts_name": "07.MANUAL.PRODUCTION.DAILY.MAX",
+                    "ts_shortname": "Cmd.REPORT.P.MAX"
+                },
+                {
+                    "ts_id": 29815042,
+                    "ts_name": "07.MANUAL.PRODUCTION.DAILY.MIN",
+                    "ts_shortname": "Cmd.REPORT.P.MIN"
+                }
+            ],
+            "PN": [
+                {
+                    "ts_id": 15348042,
+                    "ts_name": "07.MANUAL.PRODUCTION.DAILY",
+                    "ts_shortname": "Cmd.EX"
+                }
+            ],
+            "SF": [
+                {
+                    "ts_id": 24525042,
+                    "ts_name": "07.MANUAL.PRODUCTION.DAILY",
+                    "ts_shortname": "Cmd.REPORT.P"
+                }
+            ]
+        }
+    },
+    "14389": {
+        "station_name": "Shand Dam",
+        "timeseries": {
+            "LS": [
+                {
+                    "ts_id": 11189042,
+                    "ts_name": "07.NRT.PRODUCTION.HOURLY",
+                    "ts_shortname": "Cmd.Rating.P"
+                }
+            ],
+            "HK": [
+                {
+                    "ts_id": 12169042,
+                    "ts_name": "07.NRT.PRODUCTION.HOURLY",
+                    "ts_shortname": "h.Cmd.P"
+                }
+            ],
+            "QT": [
+                {
+                    "ts_id": 14154042,
+                    "ts_name": "07.NRT.PRODUCTION.HOURLY",
+                    "ts_shortname": "Cmd.P"
+                }
+            ]
+        }
+    },
+    "14419": {
+        "station_name": "Shand Dam Climate Station",
+        "timeseries": {
+            "PN": [
+                {
+                    "ts_id": 11274042,
+                    "ts_name": "07.NRT.PRODUCTION.HOURLY",
+                    "ts_shortname": "h.Cmd.P"
+                },
+                {
+                    "ts_id": 15352042,
+                    "ts_name": "07.MANUAL.PRODUCTION.DAILY",
+                    "ts_shortname": "Cmd.EX"
+                }
+            ],
+            "TA": [
+                {
+                    "ts_id": 12271042,
+                    "ts_name": "07.NRT.PRODUCTION.HOURLY",
+                    "ts_shortname": "h.Cmd.P"
+                }
+            ],
+            "PA": [
+                {
+                    "ts_id": 14161042,
+                    "ts_name": "07.NRT.PRODUCTION.HOURLY",
+                    "ts_shortname": "Cmd.P"
+                }
+            ],
+            "UD": [
+                {
+                    "ts_id": 14166042,
+                    "ts_name": "07.NRT.PRODUCTION.HOURLY",
+                    "ts_shortname": "Cmd.P"
+                }
+            ],
+            "US": [
+                {
+                    "ts_id": 14168042,
+                    "ts_name": "07.NRT.PRODUCTION.HOURLY",
+                    "ts_shortname": "Cmd.P"
+                }
+            ],
+            "SF": [
+                {
+                    "ts_id": 24516042,
+                    "ts_name": "07.MANUAL.PRODUCTION.DAILY",
+                    "ts_shortname": "Cmd.REPORT.P"
+                }
+            ]
+        }
+    },
+    "14475": {
+        "station_name": "St. Jacobs",
+        "timeseries": {
+            "QR": [
+                {
+                    "ts_id": 8641042,
+                    "ts_name": "07.NRT.PRODUCTION.HOURLY",
+                    "ts_shortname": "Cmd.Rating.P"
+                }
+            ],
+            "HG": [
+                {
+                    "ts_id": 11157042,
+                    "ts_name": "07.NRT.PRODUCTION.HOURLY",
+                    "ts_shortname": "h.Cmd.P"
+                }
+            ]
+        }
+    },
+    "14795": {
+        "station_name": "Sulphur Creek d/s fish ladder",
+        "timeseries": {
+            "HG": [
+                {
+                    "ts_id": 10101042,
+                    "ts_name": "07.NRT.PRODUCTION.HOURLY",
+                    "ts_shortname": "h.Cmd.P"
+                },
+                {
+                    "ts_id": 29928042,
+                    "ts_name": "07.NRT.PRODUCTION.PBI",
+                    "ts_shortname": "Cmd.P"
+                }
+            ]
+        }
+    },
+    "14434": {
+        "station_name": "Upper Belwood",
+        "timeseries": {
+            "QR": [
+                {
+                    "ts_id": 8707042,
+                    "ts_name": "07.NRT.PRODUCTION.HOURLY",
+                    "ts_shortname": "Cmd.Rating.P"
+                }
+            ],
+            "HG": [
+                {
+                    "ts_id": 10061042,
+                    "ts_name": "07.NRT.PRODUCTION.HOURLY",
+                    "ts_shortname": "h.Cmd.P"
+                },
+                {
+                    "ts_id": 29894042,
+                    "ts_name": "07.NRT.PRODUCTION.PBI",
+                    "ts_shortname": "Cmd.P"
+                }
+            ]
+        }
+    },
+    "14890": {
+        "station_name": "Upper Drayton",
+        "timeseries": {
+            "QR": [
+                {
+                    "ts_id": 8623042,
+                    "ts_name": "07.NRT.PRODUCTION.HOURLY",
+                    "ts_shortname": "Cmd.Rating.P"
+                }
+            ],
+            "HG": [
+                {
+                    "ts_id": 10113042,
+                    "ts_name": "07.NRT.PRODUCTION.HOURLY",
+                    "ts_shortname": "h.Cmd.P"
+                },
+                {
+                    "ts_id": 29879042,
+                    "ts_name": "07.NRT.PRODUCTION.PBI",
+                    "ts_shortname": "Cmd.P"
+                }
+            ]
+        }
+    },
+    "14983": {
+        "station_name": "Victoria Road",
+        "timeseries": {
+            "QR": [
+                {
+                    "ts_id": 8899042,
+                    "ts_name": "07.NRT.PRODUCTION.HOURLY",
+                    "ts_shortname": "Cmd.Rating.P"
+                }
+            ],
+            "HG": [
+                {
+                    "ts_id": 10118042,
+                    "ts_name": "07.NRT.PRODUCTION.HOURLY",
+                    "ts_shortname": "h.Cmd.P"
+                },
+                {
+                    "ts_id": 29926042,
+                    "ts_name": "07.NRT.PRODUCTION.PBI",
+                    "ts_shortname": "Cmd.P"
+                }
+            ]
+        }
+    },
+    "15317": {
+        "station_name": "Victoria(Breslau) Continuous Station",
+        "timeseries": {
+            "QR": [
+                {
+                    "ts_id": 8713042,
+                    "ts_name": "07.NRT.PRODUCTION.HOURLY",
+                    "ts_shortname": "Cmd.Rating.P"
+                }
+            ],
+            "HG": [
+                {
+                    "ts_id": 10136042,
+                    "ts_name": "07.NRT.PRODUCTION.HOURLY",
+                    "ts_shortname": "h.Cmd.P"
+                },
+                {
+                    "ts_id": 29895042,
+                    "ts_name": "07.NRT.PRODUCTION.PBI",
+                    "ts_shortname": "Cmd.P"
+                }
+            ],
+            "WP": [
+                {
+                    "ts_id": 11585042,
+                    "ts_name": "07.NRT.PRODUCTION.HOURLY",
+                    "ts_shortname": "h.Cmd.P"
+                }
+            ],
+            "WO": [
+                {
+                    "ts_id": 12150042,
+                    "ts_name": "07.NRT.PRODUCTION.HOURLY",
+                    "ts_shortname": "h.Cmd.P"
+                },
+                {
+                    "ts_id": 29838042,
+                    "ts_name": "07.NRT.PRODUCTION.PBI",
+                    "ts_shortname": "Cmd.P"
+                }
+            ],
+            "TW": [
+                {
+                    "ts_id": 16481042,
+                    "ts_name": "07.NRT.PRODUCTION.HOURLY",
+                    "ts_shortname": "h.Cmd.P"
+                },
+                {
+                    "ts_id": 29858042,
+                    "ts_name": "07.NRT.PRODUCTION.PBI",
+                    "ts_shortname": "Cmd.P"
+                }
+            ],
+            "WC": [
+                {
+                    "ts_id": 16485042,
+                    "ts_name": "07.NRT.PRODUCTION.HOURLY",
+                    "ts_shortname": "h.Cmd.P"
+                },
+                {
+                    "ts_id": 29830042,
+                    "ts_name": "07.NRT.PRODUCTION.PBI",
+                    "ts_shortname": "Cmd.P"
+                }
+            ],
+            "WT": [
+                {
+                    "ts_id": 16499042,
+                    "ts_name": "07.NRT.PRODUCTION.HOURLY",
+                    "ts_shortname": "h.Cmd.P"
+                },
+                {
+                    "ts_id": 29849042,
+                    "ts_name": "07.NRT.PRODUCTION.PBI",
+                    "ts_shortname": "Cmd.P"
+                }
+            ]
+        }
+    },
+    "15061": {
+        "station_name": "Waldemar",
+        "timeseries": {
+            "QR": [
+                {
+                    "ts_id": 8719042,
+                    "ts_name": "07.NRT.PRODUCTION.HOURLY",
+                    "ts_shortname": "Cmd.Rating.P"
+                }
+            ],
+            "HG": [
+                {
+                    "ts_id": 10125042,
+                    "ts_name": "07.NRT.PRODUCTION.HOURLY",
+                    "ts_shortname": "h.Cmd.P"
+                },
+                {
+                    "ts_id": 29896042,
+                    "ts_name": "07.NRT.PRODUCTION.PBI",
+                    "ts_shortname": "Cmd.P"
+                }
+            ]
+        }
+    },
+    "14493": {
+        "station_name": "Weber Street",
+        "timeseries": {
+            "QR": [
+                {
+                    "ts_id": 8791042,
+                    "ts_name": "07.NRT.PRODUCTION.HOURLY",
+                    "ts_shortname": "Cmd.Rating.P"
+                }
+            ],
+            "HG": [
+                {
+                    "ts_id": 10059042,
+                    "ts_name": "07.NRT.PRODUCTION.HOURLY",
+                    "ts_shortname": "h.Cmd.P"
+                },
+                {
+                    "ts_id": 29908042,
+                    "ts_name": "07.NRT.PRODUCTION.PBI",
+                    "ts_shortname": "Cmd.P"
+                }
+            ]
+        }
+    },
+    "15132": {
+        "station_name": "Wellesley Dam",
+        "timeseries": {
+            "HK": [
+                {
+                    "ts_id": 10162042,
+                    "ts_name": "07.NRT.PRODUCTION.HOURLY",
+                    "ts_shortname": "h.Cmd.P"
+                }
+            ],
+            "PN": [
+                {
+                    "ts_id": 11268042,
+                    "ts_name": "07.NRT.PRODUCTION.HOURLY",
+                    "ts_shortname": "h.Cmd.P"
+                }
+            ],
+            "TA": [
+                {
+                    "ts_id": 12264042,
+                    "ts_name": "07.NRT.PRODUCTION.HOURLY",
+                    "ts_shortname": "h.Cmd.P"
+                }
+            ]
+        }
+    },
+    "14504": {
+        "station_name": "West Montrose",
+        "timeseries": {
+            "QR": [
+                {
+                    "ts_id": 8725042,
+                    "ts_name": "07.NRT.PRODUCTION.HOURLY",
+                    "ts_shortname": "Cmd.Rating.P"
+                }
+            ],
+            "HG": [
+                {
+                    "ts_id": 10068042,
+                    "ts_name": "07.NRT.PRODUCTION.HOURLY",
+                    "ts_shortname": "h.Cmd.P"
+                }
+            ]
+        }
+    },
+    "14453": {
+        "station_name": "Willow Brook",
+        "timeseries": {
+            "QR": [
+                {
+                    "ts_id": 8917042,
+                    "ts_name": "07.NRT.PRODUCTION.HOURLY",
+                    "ts_shortname": "Cmd.Rating.P"
+                }
+            ]
+        }
+    },
+    "15147": {
+        "station_name": "Woolwich Dam",
+        "timeseries": {
+            "HK": [
+                {
+                    "ts_id": 11402042,
+                    "ts_name": "07.NRT.PRODUCTION.HOURLY",
+                    "ts_shortname": "h.Cmd.P"
+                }
+            ],
+            "LS": [
+                {
+                    "ts_id": 11650042,
+                    "ts_name": "07.NRT.PRODUCTION.HOURLY",
+                    "ts_shortname": "Cmd.Rating.P"
+                }
+            ],
+            "QT": [
+                {
+                    "ts_id": 12653042,
+                    "ts_name": "07.NRT.PRODUCTION.HOURLY",
+                    "ts_shortname": "Cmd.P"
+                }
+            ]
+        }
+    },
+    "15171": {
+        "station_name": "Woolwich Dam Climate Station",
+        "timeseries": {
+            "PN": [
+                {
+                    "ts_id": 11259042,
+                    "ts_name": "07.NRT.PRODUCTION.HOURLY",
+                    "ts_shortname": "h.Cmd.P"
+                },
+                {
+                    "ts_id": 15367042,
+                    "ts_name": "07.MANUAL.PRODUCTION.DAILY",
+                    "ts_shortname": "Cmd.EX"
+                }
+            ],
+            "TA": [
+                {
+                    "ts_id": 12259042,
+                    "ts_name": "07.NRT.PRODUCTION.HOURLY",
+                    "ts_shortname": "h.Cmd.P"
+                }
+            ],
+            "SF": [
+                {
+                    "ts_id": 24514042,
+                    "ts_name": "07.MANUAL.PRODUCTION.DAILY",
+                    "ts_shortname": "Cmd.REPORT.P"
+                }
+            ]
+        }
+    },
+    "14827": {
+        "station_name": "York",
+        "timeseries": {
+            "QR": [
+                {
+                    "ts_id": 8731042,
+                    "ts_name": "07.NRT.PRODUCTION.HOURLY",
+                    "ts_shortname": "Cmd.Rating.P"
+                }
+            ],
+            "HG": [
+                {
+                    "ts_id": 10105042,
+                    "ts_name": "07.NRT.PRODUCTION.HOURLY",
+                    "ts_shortname": "h.Cmd.P"
+                },
+                {
+                    "ts_id": 29897042,
+                    "ts_name": "07.NRT.PRODUCTION.PBI",
+                    "ts_shortname": "Cmd.P"
+                }
+            ],
+            "PN": [
+                {
+                    "ts_id": 12122042,
+                    "ts_name": "07.NRT.PRODUCTION.HOURLY",
+                    "ts_shortname": "h.Cmd.P"
+                }
+            ]
+        }
+    },
+    "15336": {
+        "station_name": "York WQ Station",
+        "timeseries": {
+            "QR": [
+                {
+                    "ts_id": 8737042,
+                    "ts_name": "07.NRT.PRODUCTION.HOURLY",
+                    "ts_shortname": "Cmd.Rating.P"
+                }
+            ],
+            "HG": [
+                {
+                    "ts_id": 10137042,
+                    "ts_name": "07.NRT.PRODUCTION.HOURLY",
+                    "ts_shortname": "h.Cmd.P"
+                },
+                {
+                    "ts_id": 29898042,
+                    "ts_name": "07.NRT.PRODUCTION.PBI",
+                    "ts_shortname": "Cmd.P"
+                }
+            ],
+            "WP": [
+                {
+                    "ts_id": 11587042,
+                    "ts_name": "07.NRT.PRODUCTION.HOURLY",
+                    "ts_shortname": "h.Cmd.P"
+                },
+                {
+                    "ts_id": 29822042,
+                    "ts_name": "07.NRT.PRODUCTION.PBI",
+                    "ts_shortname": "Cmd.P"
+                }
+            ],
+            "WO": [
+                {
+                    "ts_id": 12153042,
+                    "ts_name": "07.NRT.PRODUCTION.HOURLY",
+                    "ts_shortname": "h.Cmd.P"
+                },
+                {
+                    "ts_id": 29839042,
+                    "ts_name": "07.NRT.PRODUCTION.PBI",
+                    "ts_shortname": "Cmd.P"
+                }
+            ],
+            "TW": [
+                {
+                    "ts_id": 16503042,
+                    "ts_name": "07.NRT.PRODUCTION.HOURLY",
+                    "ts_shortname": "h.Cmd.P"
+                },
+                {
+                    "ts_id": 29859042,
+                    "ts_name": "07.NRT.PRODUCTION.PBI",
+                    "ts_shortname": "Cmd.P"
+                }
+            ],
+            "WC": [
+                {
+                    "ts_id": 16507042,
+                    "ts_name": "07.NRT.PRODUCTION.HOURLY",
+                    "ts_shortname": "h.Cmd.P"
+                },
+                {
+                    "ts_id": 29831042,
+                    "ts_name": "07.NRT.PRODUCTION.PBI",
+                    "ts_shortname": "Cmd.P"
+                }
+            ],
+            "WT": [
+                {
+                    "ts_id": 16521042,
+                    "ts_name": "07.NRT.PRODUCTION.HOURLY",
+                    "ts_shortname": "h.Cmd.P"
+                },
+                {
+                    "ts_id": 29850042,
+                    "ts_name": "07.NRT.PRODUCTION.PBI",
+                    "ts_shortname": "Cmd.P"
+                }
+            ]
+        }
+    }
+}
