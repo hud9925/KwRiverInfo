@@ -1,14 +1,15 @@
 {
   "version": 2,
   "builds": [
-    { "src": "api/app.py", "use": "@vercel/python" }
+    {
+      "src": "api/app.py",
+      "use": "@vercel/python"
+    }
   ],
   "routes": [
-    { "src": "/(.*)", "dest": "api/app.py" }
-  ],
-  "functions": {
-    "api/app.py": { "runtime": "python3.10" }
-  },
-  
-  "installCommand": "pip install -r requirements.txt"
+    {
+      "src": "/(.*)",
+      "dest": "api/app.py"
+    }
+  ]
 }

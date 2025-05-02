@@ -1,3 +1,8 @@
+
+SQLALCHEMY_URI = (
+   "database_url";
+)
+
 """
 Non‑secret defaults
 """
@@ -11,3 +16,4 @@ TIMEZONE       = "America/Toronto"
 
 SQLALCHEMY_DATABASE_URI = os.environ["SQLALCHEMY_URI"]   # required
 SQLALCHEMY_TRACK_MODIFICATIONS = False
+
