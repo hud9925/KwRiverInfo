@@ -3,6 +3,7 @@ name: Hourly Scrape
 
 # Run at minute 0 of every hour
 on:
+  workflow_dispatch:
   schedule:
     - cron: '0 * * * *'
 
@@ -32,8 +33,7 @@ jobs:
           KIWIS_BASE_URL:    ${{ secrets.KIWIS_BASE_URL }}
           TIMEZONE:          ${{ secrets.TIMEZONE }}
           SQLALCHEMY_URI:    ${{ secrets.SQLALCHEMY_URI }}
-          SUPABASE_URL:      ${{ secrets.SUPABASE_URL }}
-          SUPABASE_KEY:      ${{ secrets.SUPABASE_KEY }}
+          
 
         run: |
           time python -m jobs.hourly_scrape
