@@ -1,7 +1,7 @@
 from urllib.parse import urlencode
 import requests
 
-from config.settings import KIWIS_BASE_URL, TIMEZONE
+from config.settings_example import KIWIS_BASE_URL, TIMEZONE
 
 def _query(params: dict) -> dict:
     """Low-level GET wrapper with sane retries."""

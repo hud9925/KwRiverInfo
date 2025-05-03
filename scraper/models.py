@@ -1,14 +1,11 @@
 from datetime import datetime, timezone
 
-from config.settings import SQLALCHEMY_URI
-print("SQLALCHEMY_URI =", SQLALCHEMY_URI)
+from config.settings_example import SQLALCHEMY_DATABASE_URI as SQLALCHEMY_URI
 
 from sqlalchemy import (
     Column, Integer, Float, DateTime, String, MetaData, create_engine, ForeignKey,
 )
 from sqlalchemy.orm import declarative_base, Session, relationship
-
-from config.settings import SQLALCHEMY_URI
 
 engine = create_engine(SQLALCHEMY_URI, pool_pre_ping=True)
 Base   = declarative_base(metadata=MetaData())

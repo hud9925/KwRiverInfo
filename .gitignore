@@ -1,3 +1,5 @@
+__pycache__/
+*.py[cod]
 node_modules
 .env
 output_csvs
@@ -21,3 +23,4 @@ config/settings.py
 exclude.json
 package-lock.json
 package.json
+

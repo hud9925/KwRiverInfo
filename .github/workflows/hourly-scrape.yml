@@ -1,0 +1,39 @@
+
+name: Hourly Scrape
+
+# Run at minute 0 of every hour
+on:
+  schedule:
+    - cron: '0 * * * *'
+
+jobs:
+  scrape:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out code
+        uses: actions/checkout@v3
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.x'
+
+      - name: Install dependencies
+        run: |
+          pip install -r requirements.txt
+
+      - name: Run scraper
+        env:
+          # ensure your imports find config/settings_example.py
+          PYTHONPATH: ${{ github.workspace }}/api
+
+          # your KiWIS and Supabase creds as repo secrets
+          KIWIS_BASE_URL:    ${{ secrets.KIWIS_BASE_URL }}
+          TIMEZONE:          ${{ secrets.TIMEZONE }}
+          SQLALCHEMY_URI:    ${{ secrets.SQLALCHEMY_URI }}
+          SUPABASE_URL:      ${{ secrets.SUPABASE_URL }}
+          SUPABASE_KEY:      ${{ secrets.SUPABASE_KEY }}
+
+        run: |
+          time python -m jobs.hourly_scrape
