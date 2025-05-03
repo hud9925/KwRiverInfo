@@ -142,6 +142,51 @@ def create_app():
             dict(row._mapping) for row in rows
             if row.ts_id not in BAD_PARAMS.get(row.station_id, set())
         ])
+    @app.route("/api/cluster/history")
+    def cluster_history():
+        ids = request.args.getlist("station_id", type=int)
+        if not ids:
+            return jsonify([])
+
+        sql = (
+            text("""
+            SELECT
+              s.id            AS station_id,
+              s.name          AS station,
+              ts.ts_id,
+              ts.parameter_fullname,
+              ts.unit,
+              ts.value,
+              ts.timestamp
+            FROM timeseries_data ts
+            JOIN stations s
+              ON ts.station_id = s.id
+            WHERE s.id IN :ids
+              AND ts.timestamp >= now() - interval '6 hours'
+            ORDER BY s.id, ts.ts_id, ts.timestamp ASC
+            """)
+            .bindparams(bindparam("ids", expanding=True))
+        )
+
+        rows = db.session.execute(sql, {"ids": ids}).fetchall()
+
+        buffers = {}
+        for r in rows:
+            key = (r.station_id, r.ts_id)
+            if key not in buffers:
+                buffers[key] = {
+                    "station_id": r.station_id,
+                    "station":    r.station,
+                    "parameter":  r.parameter_fullname,
+                    "unit":       r.unit,
+                    "points":     []
+                }
+            buffers[key]["points"].append({
+                "t": r.timestamp.isoformat(),
+                "v": r.value
+            })
+
+        return jsonify(list(buffers.values()))
     @app.route("/api/dams")
     def api_dams():
         # 1) fetch the same GeoJSON you already have

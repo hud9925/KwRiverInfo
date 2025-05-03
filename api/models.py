@@ -38,7 +38,7 @@ class TimeSeriesMetadata(db.Model):
 
 
 class TimeSeriesData(db.Model):
-    __tablename__ = "time_series_data"
+    __tablename__ = "timeseries_data"
     id                 = db.Column(db.Integer, primary_key=True)
     timestamp          = db.Column(db.DateTime(timezone=True), nullable=False, index=True)
     value              = db.Column(db.Float,                        nullable=False)
