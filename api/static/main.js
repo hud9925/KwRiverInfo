@@ -1,19 +1,14 @@
 // helper functions
-
-function showLoader(){
-  document.getElementById('loading').style.visibility = 'visible';
-}
-function hideLoader(){
-  document.getElementById('loading').style.visibility = 'hidden';
-}
-function degToCardinal(deg){
+const showLoader = () => document.getElementById('loading').style.visibility = 'visible';
+const hideLoader = () => document.getElementById('loading').style.visibility = 'hidden';
+const degToCardinal = deg => {
   const dirs = ["N","NE","E","SE","S","SW","W","NW"];
   return dirs[Math.floor(((deg%360)+360)/45) % 8];
-}
+};
 
 
 
-/* ---------- static data (reuse your cluster list) ---------- */
+/* ---------- static clusters ---------- */
 const EXCLUDE = [
     "Millbank Climate Station","Dundalk Climate Station","Keldon",
     "Leggatt","Dickie Settlement Road","New Dundee Road","Horner Creek",
@@ -62,190 +57,238 @@ const EXCLUDE = [
       "Nithburg","Wellesley Dam"
     ] };
   
-  /* ---------- global bootstrap ---------- */
+    // ─── Tab boilerplate ────────────────────────────────────────────────────────
   document.addEventListener('DOMContentLoaded', () => {
-    // preload first tab (Map)
     loadTab('map');
-  
-    // nav-tab click handler
-    document.querySelectorAll('#dash-tabs .nav-link').forEach(btn => {
-      btn.addEventListener('click', () => {
+    document.querySelectorAll('#dash-tabs .nav-link')
+      .forEach(btn => btn.addEventListener('click', () => {
         if (btn.classList.contains('active')) return;
-        document.querySelectorAll('#dash-tabs .nav-link')
-                .forEach(b => b.classList.remove('active'));
+        document.querySelectorAll('#dash-tabs .nav-link').forEach(b=>b.classList.remove('active'));
         btn.classList.add('active');
         loadTab(btn.dataset.tab);
-      });
-    });
+      }));
   });
-  
-  /* ---------- lazy tab loader ---------- */
-  async function loadTab(name){
+
+  async function loadTab(name) {
     showLoader();
     try {
-      const res  = await fetch(`/tabs/${name}`);
-      const html = await res.text();
+      const html = await fetch(`/tabs/${name}`).then(r=>r.text());
       document.getElementById('tab-content').innerHTML = html;
-      if (name==='map')  initMapTab();
-      if (name==='cond') initConditionsTab();
-      if (name==='adv')  initAdvisoriesTab();
-    } catch(e){
+      if (name === 'map')   initMapTab();
+      if (name === 'cond')  initConditionsTab();
+      if (name === 'adv')   initAdvisoriesTab();
+    } catch (e) {
       console.error(e);
     } finally {
       hideLoader();
     }
   }
 
-function showLoader(){ document.getElementById('loading').style.visibility='visible'; }
-function hideLoader(){ document.getElementById('loading').style.visibility='hidden'; }
-
 
   
   /* ========================================================================
      1.  MAP TAB  – dams only
      ===================================================================== */
-  function initMapTab(){
-    const map = L.map('map').setView([43.5, -80.5], 9);
-    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
-                {maxZoom:16}).addTo(map);
-  
-    fetch('/api/dams')
-      .then(r=>r.json())
-      .then(dams=>{
-        dams.forEach(d=>{
-          L.marker([d.lat, d.lon], {
-            icon: L.icon({
-              iconUrl: '/static/dam.png',  // supply a 18×18 png
-              iconSize:[18,18]
-            })
-          })
-          .addTo(map)
-          .bindPopup(`<strong>${d.name}</strong>`);
-        });
-      }).catch(console.error);
-  }
+  function initMapTab() {
+  const map = L.map('map').setView([43.5,-80.5],9);
+  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{maxZoom:16}).addTo(map);
+
+  fetch('/api/dams')
+    .then(r=>r.json())
+    .then(dams => {
+      dams.forEach(d => {
+        L.marker([d.lat, d.lon], {
+          icon: L.icon({iconUrl:'/static/dam.png', iconSize:[18,18]})
+        })
+        .addTo(map)
+        .bindPopup(`<strong>${d.name}</strong>`);
+      });
+    })
+    .catch(console.error);
+}
   
   /* ========================================================================
      2.  CURRENT CONDITIONS TAB
      ===================================================================== */
-  let ccAllFeatures = [];   // will hold all station GeoJSON from /api/stations
-  let ccMap;
+    let ccAllFeatures = [], ccMap;
 
-  function initConditionsTab(){
-
-  // 1) init mini-map once
-    if(!ccMap){
-      ccMap = L.map('cc-map', { zoomControl:false, attributionControl:false })
-                .setView([43.5,-80.5], 9);
-      L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
-                  { maxZoom:16 }).addTo(ccMap);
-    }
-
-    // 2) fetch & cache station index
-    if(ccAllFeatures.length === 0){
-      showLoader();
-      fetch('/api/stations')
-        .then(r=>r.json())
-        .then(j=>{
-          ccAllFeatures = j.features;
-          buildClusterDropdown();
-          renderCluster('All');
-        })
-        .finally(hideLoader);
-    } else {
-      buildClusterDropdown();
-      renderCluster('All');
-    }
-  }
-  
-  /* ---- build dropdown ---- */
-  function buildClusterDropdown(){
-    const sel = document.getElementById('cluster-select');
-    sel.innerHTML = `<option value="All">All clusters</option>` +
-      Object.keys(CLUSTERS).map(c=>`<option value="${c}">${c}</option>`).join('');
-    sel.addEventListener('change', e=> renderCluster(e.target.value));
-  }
-  
-  /* ---- fetch + render table ---- */
-  function renderCluster(name){
-    const tbody = document.querySelector('#cc-table tbody');
-    tbody.innerHTML = '';  // clear old
-
-  // draw mini-map markers
-    const subset = name==='All'
-      ? ccAllFeatures
-      : ccAllFeatures.filter(f=> CLUSTERS[name]?.includes(f.properties.station_name));
-    ccMap.eachLayer(l=> l instanceof L.CircleMarker && ccMap.removeLayer(l));
-    const pts = subset.map(f=>[f.geometry.coordinates[1],f.geometry.coordinates[0]]);
-    pts.forEach(ll=> L.circleMarker(ll,{radius:5}).addTo(ccMap));
-    if(pts.length) ccMap.fitBounds(pts);
-
-  // load table data
-    const ids = subset.map(f=>f.properties.db_id);
-    if(!ids.length){
-      tbody.innerHTML = `<tr>
-        <td colspan="6" class="text-center text-muted">No stations in this cluster</td>
-      </tr>`;
-      return;
-    }
-
-  showLoader();
-  fetch('/api/cluster/latest?' + ids.map(id=>`station_id=${id}`).join('&'))
-    .then(r=>r.json())
-    .then(rawRows=>{
-      // group by ts_id to compute trend
-      const byTs = {};
-      rawRows.forEach(r=> (byTs[r.ts_id] = byTs[r.ts_id]||[]).push(r));
-
-      const display = [];
-      for(const ts in byTs){
-        const arr = byTs[ts].sort((a,b)=>new Date(b.timestamp)-new Date(a.timestamp));
-        const latest = arr[0];
-        const prev   = arr[1]||latest;
-        const delta  = latest.value - prev.value;
-        // normalize wind direction
-        let valDisp = latest.value;
-        if(latest.parameter_fullname.includes('Wind – Direction')){
-          valDisp = degToCardinal(latest.value);
-        } else {
-          valDisp = +latest.value.toFixed(1);
-        }
-        display.push({
-          station: latest.station,
-          parameter: latest.parameter_fullname,
-          latest: valDisp,
-          trend:    delta>0?'↑':delta<0?'↓':'→',
-          unit:     latest.unit,
-          time:     new Date(latest.timestamp).toLocaleString()
-        });
+    function initConditionsTab() {
+      if (!ccMap) {
+        ccMap = L.map('cc-map', { zoomControl: false, attributionControl: false })
+                  .setView([43.5, -80.5], 9);
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', { maxZoom: 16 })
+          .addTo(ccMap);
       }
 
-      // render rows
-      tbody.innerHTML = display.map(r=>`
-        <tr>
-          <td>${r.station}</td>
-          <td>${r.parameter}</td>
-          <td>${r.latest}</td>
-          <td>${r.trend}</td>
-          <td>${r.unit}</td>
-          <td>${r.time}</td>
-        </tr>
-      `).join('');
-    })
-    .catch(()=> {
-      tbody.innerHTML = `<tr>
-        <td colspan="6" class="text-center text-danger">Error loading data</td>
-      </tr>`;
-    })
-    .finally(hideLoader);
-  }
-  
-  /* ========================================================================
-     3.  ADVISORIES TAB  (stub for later)
-     ===================================================================== */
-  function initAdvisoriesTab(){
-    document.getElementById('tab-content')
-            .insertAdjacentHTML('beforeend',
-               '<div class="alert alert-info">Advisory view coming soon.</div>');
-  }
+      if (ccAllFeatures.length === 0) {
+        showLoader();
+        fetch('/api/stations')
+          .then(r => r.json())
+          .then(j => ccAllFeatures = j.features)
+          .finally(() => {
+            buildClusterDropdown();
+            bindParamButtons();
+            renderCluster('All');
+            hideLoader();
+          });
+      } else {
+        buildClusterDropdown();
+        bindParamButtons();
+        renderCluster('All');
+      }
+    }
+
+    function buildClusterDropdown() {
+      const sel = document.getElementById('cluster-select');
+      sel.innerHTML = `<option value="All">All clusters</option>` +
+                      Object.keys(CLUSTERS).map(c =>
+                        `<option value="${c}">${c}</option>`
+                      ).join('');
+      sel.onchange = () => renderCluster(sel.value);
+    }
+
+    function bindParamButtons() {
+      document.querySelectorAll('[data-param]').forEach(btn => {
+        btn.onclick = () => {
+          document.querySelectorAll('[data-param]').forEach(b => b.classList.remove('active'));
+          btn.classList.add('active');
+          const filter = btn.dataset.param;
+          document.querySelectorAll('#cc-stations-container .card').forEach(card => {
+            const types = card.dataset.paramtype.split(',');
+            card.style.display = (filter === 'all' || types.includes(filter))
+                                ? '' : 'none';
+          });
+        };
+      });
+    }
+
+    async function renderCluster(name) {
+      const container = document.getElementById('cc-stations-container');
+      container.innerHTML = '';
+      showLoader();
+
+      // 1) filter + draw mini‑map
+      const subset = name === 'All'
+        ? ccAllFeatures
+        : ccAllFeatures.filter(f => CLUSTERS[name]?.includes(f.properties.station_name));
+      ccMap.eachLayer(l => l instanceof L.CircleMarker && ccMap.removeLayer(l));
+      const pts = subset.map(f => [f.geometry.coordinates[1], f.geometry.coordinates[0]]);
+      pts.forEach(ll => L.circleMarker(ll,{ radius:5 }).addTo(ccMap));
+      if (pts.length) ccMap.fitBounds(pts);
+
+      // 2) no‑stations guard
+      const ids = subset.map(f => f.properties.db_id);
+      if (!ids.length) {
+        container.innerHTML = `<div class="text-muted">No stations in this cluster</div>`;
+        hideLoader();
+        return;
+      }
+
+      // 3) fetch latest & history in parallel
+      const qs = ids.map(id => `station_id=${id}`).join('&');
+      let latest, history;
+      try {
+        [ latest, history ] = await Promise.all([
+          fetch(`/api/cluster/latest?${qs}`).then(r => r.json()),
+          fetch(`/api/cluster/history?${qs}`).then(r => r.json())
+        ]);
+      } catch (err) {
+        container.innerHTML = `<div class="text-danger">Error loading data</div>`;
+        hideLoader();
+        return;
+      }
+      hideLoader();
+
+      // 4) build a flat history lookup
+      const byHistory = {};
+      history.forEach(h => {
+        const key = `${h.station}|${h.parameter}`;
+        // map each point to its numeric value
+        byHistory[key] = h.points.map(pt => pt.v);
+      });
+
+      // 5) group latest rows by station
+      const byLatest = {};
+      latest.forEach(r => {
+        byLatest[r.station] = byLatest[r.station] || [];
+        byLatest[r.station].push(r);
+      });
+
+      // 6) render one card per station
+      Object.entries(byLatest).forEach(([station, readings]) => {
+        // determine param types for filtering
+        const types = [...new Set(readings.map(r => {
+          if (/Air/.test(r.parameter_fullname))      return 'Air';
+          if (/Water|Discharge/.test(r.parameter_fullname)) return 'Water';
+          if (/Wind/.test(r.parameter_fullname))     return 'Wind';
+          return 'Other';
+        }))];
+
+        const card = document.createElement('div');
+        card.className = 'card mb-3';
+        card.dataset.paramtype = types.join(',');
+        card.innerHTML = `
+          <div class="card-header"><h6 class="mb-0">${station}</h6></div>
+          <div class="card-body p-2">
+            <table class="table table-sm mb-0">
+              <thead>
+                <tr>
+                  <th>Parameter</th><th>Value</th><th>Trend</th>
+                  <th>Unit</th><th>Time</th><th>6‑Hour Trend</th>
+                </tr>
+              </thead>
+              <tbody>
+                ${readings.map(r => {
+                  const prev  = r.prev_value ?? r.value;
+                  const arrow = r.value > prev ? '↑' : r.value < prev ? '↓' : '→';
+                  return `
+                    <tr>
+                      <td>${r.parameter_fullname}</td>
+                      <td>${r.value.toFixed(1)}</td>
+                      <td>${arrow}</td>
+                      <td>${r.unit}</td>
+                      <td>${new Date(r.timestamp).toLocaleTimeString()}</td>
+                      <td><canvas class="sparkline" width="80" height="20"></canvas></td>
+                    </tr>`;
+                }).join('')}
+              </tbody>
+            </table>
+          </div>`;
+
+        container.appendChild(card);
+
+        // draw each sparkline
+        card.querySelectorAll('.sparkline').forEach((cnv,i) => {
+          const param = readings[i].parameter_fullname;
+          const key   = `${station}|${param}`;
+          const series= byHistory[key] || [];
+          if (series.length > 1) {
+            drawSparkline(cnv, series);
+          } else {
+            cnv.parentElement.textContent = '–';
+          }
+        });
+      });
+    }
+     
+     // ─── Sparkline utility ────────────────────────────────────────────────────
+     function drawSparkline(canvas, data) {
+      const ctx = canvas.getContext('2d'),
+            w   = canvas.width, h = canvas.height,
+            min = Math.min(...data), max = Math.max(...data);
+      ctx.beginPath();
+      data.forEach((v,i) => {
+        const x = (i/(data.length-1))*w,
+              y = h - ((v-min)/(max-min))*h;
+        i===0 ? ctx.moveTo(x,y) : ctx.lineTo(x,y);
+      });
+      ctx.stroke();
+    }
+     
+     // ─── 3. Advisories stub ───────────────────────────────────────────────────
+     function initAdvisoriesTab() {
+       document.getElementById('tab-content')
+         .insertAdjacentHTML('beforeend',
+           '<div class="alert alert-info">Advisory view coming soon.</div>');
+     }
   
