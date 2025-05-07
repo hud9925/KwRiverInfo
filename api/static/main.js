@@ -93,18 +93,34 @@ const EXCLUDE = [
   const map = L.map('map').setView([43.5,-80.5],9);
   L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{maxZoom:16}).addTo(map);
 
+  const damLayer = L.layerGroup().addTo(map);
+  const accessLayer = L.layerGroup().addTo(map);
+
+
   fetch('/api/dams')
     .then(r=>r.json())
     .then(dams => {
       dams.forEach(d => {
         L.marker([d.lat, d.lon], {
-          icon: L.icon({iconUrl:'/static/dam.png', iconSize:[18,18]})
+          icon: L.icon({iconUrl:'/static/dam.png', 
+            iconSize:[30,30],
+          iconAnchor: [16, 32],
+          popupAnchor: [0, -32]
         })
-        .addTo(map)
+        })
+        .addTo(damLayer)
         .bindPopup(`<strong>${d.name}</strong>`);
       });
     })
     .catch(console.error);
+
+    // access point layer
+    L.control.layers(null, {
+      "Dams": damLayer,
+      "Access points": accessLayer
+    }, { collapsed: false })
+     .addTo(map);
+
 }
   
   /* ========================================================================
