@@ -26,7 +26,13 @@ const ACCESS_POINTS = [
   { name: "River’s Bluffs Park",   lat: 43.3708315,  lon: -80.3237178 },
   { name: "Rail Trail Parking Lot",lat: 43.345944,   lon: -80.314889 }, 
   { name: "Eric Thomlinson Ramp",  lat: 43.2765009,  lon: -80.3481151 },
-  { name: "Penman’s Dam",          lat: 43.1970663,  lon: -80.3828296 }
+  { name: "Penman’s Dam",          lat: 43.1970663,  lon: -80.3828296 },
+  { name: "Bean Park",                   lat: 43.1817994,   lon: -80.3722872 },
+  { name: "Cockshutt Bridge",            lat: 43.1104507,   lon: -80.2453403 },
+  { name: "Gilkison Flats",              lat: 43.1208596,   lon: -80.2680613 },
+  { name: "Caledonia Kinsmen Park",      lat: 43.0739608,   lon: -79.9560741 },
+  { name: "York Park",                   lat: 43.0207607,    lon: -79.9329564 },
+  { name: "Bob Baigent Memorial Park",   lat: 42.9481751,   lon: -79.8635429 }
 ]
 
 
@@ -105,8 +111,7 @@ const CLUSTERS = {
   function initMapTab() {
   const map = L.map('map').setView([43.5,-80.5],9);
   L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{maxZoom:16}).addTo(map);
-
-  
+ 
 
   const damIcon = L.icon({
     iconUrl: '/static/dam.png',
@@ -137,17 +142,40 @@ const CLUSTERS = {
                        target="_blank">Get directions</a>`);
     });
   });
-
+    // additional dams that were not in the KiWIS API
+    const DAM_NAMES = new Set([
+      "Three Bridges Dam",
+      "Penman’s Dam"
+    ]);
     // access point layer
+
     ACCESS_POINTS.forEach(pt => {
-    const m = L.marker([pt.lat, pt.lon], { icon: apIcon })
-      .bindPopup(`
-        <strong>${pt.name}</strong><br>
-        <a href="https://www.google.com/maps?q=${pt.lat},${pt.lon}"
-           target="_blank">Get directions</a>
-      `);
-    accessLayer.addLayer(m);
+  // choose layer based on whether this point is actually a dam
+  const targetLayer = DAM_NAMES.has(pt.name)
+    ? damLayer
+    : accessLayer;
+
+  L.marker([pt.lat, pt.lon], {
+    icon: DAM_NAMES.has(pt.name) ? damIcon : apIcon
+  })
+  .addTo(targetLayer)
+  .bindPopup(`
+    <strong>${pt.name}</strong><br>
+    <a href="https://www.google.com/maps?q=${pt.lat},${pt.lon}" target="_blank">
+      Get directions
+    </a>
+  `);
     });
+    // ACCESS_POINTS.forEach(pt => {
+    
+    //   const m = L.marker([pt.lat, pt.lon], { icon: apIcon })
+    //   .bindPopup(`
+    //     <strong>${pt.name}</strong><br>
+    //     <a href="https://www.google.com/maps?q=${pt.lat},${pt.lon}"
+    //        target="_blank">Get directions</a>
+    //   `);
+    // accessLayer.addLayer(m);
+    // });
 
       // 5) add a layer‐control in the top‐right
     L.control.layers(
@@ -161,6 +189,9 @@ const CLUSTERS = {
 
     // 6) fit to show everything
     const all = L.featureGroup([ damLayer, accessLayer ]);
+
+    
+
     map.fitBounds(all.getBounds().pad(0.1));
 
 }
