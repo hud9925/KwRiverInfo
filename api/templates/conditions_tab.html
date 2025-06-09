@@ -1,24 +1,62 @@
-<h1 class="h5 mb-3">Current Conditions</h1>
+{% extends "base.html" %}
+{% block content %}
+<h1 class="h4 mb-4">Current Climatic Conditions</h1>
 
-<div class="d-flex align-items-start mb-3">
-  <!-- mini-map -->
-  <div id="cc-map" class="border rounded me-3" style="width:200px; height:200px;"></div>
+<!-- Cluster selector -->
+<div class="mb-4">
+  <label for="cluster-select" class="form-label">Choose Cluster</label>
+  <select id="cluster-select" class="form-select w-50"></select>
+</div>
 
-  <div class="flex-grow-1">
-    <label for="cluster-select" class="form-label">Choose cluster</label>
-    <select id="cluster-select" class="form-select mb-3">
-      <option>Loading…</option>
-    </select>
-
-    <!-- Parameter toggles -->
-    <div class="btn-group mb-3" role="group" aria-label="Filter parameters">
-      <button type="button" class="btn btn-outline-primary active" data-param="all">All</button>
-      <button type="button" class="btn btn-outline-primary" data-param="Water">💧 Water</button>
-      <button type="button" class="btn btn-outline-primary" data-param="Air">🌡 Air</button>
-      <button type="button" class="btn btn-outline-primary" data-param="Wind">💨 Wind</button>
+<!-- 4 value cards + sparklines -->
+<div class="row g-3 mb-5" id="cluster-summary">
+  <div class="col-md-3">
+    <div class="card text-center p-3">
+      <h6 class="card-subtitle mb-2">Current Water Discharge<br/>(m³/s)</h6>
+      <h2 id="disc-value" class="mb-1">–</h2>
+      <small id="disc-ts" class="text-muted">–</small>
+      <canvas id="spark-disc" class="mt-3 sparkline" width="200" height="50"></canvas>
     </div>
+  </div>
 
-    <!-- inject station cards -->
-    <div id="cc-stations-container"></div>
+  <div class="col-md-3">
+    <div class="card text-center p-3">
+      <h6 class="card-subtitle mb-2">Current River Height<br/>(m)</h6>
+      <h2 id="height-value" class="mb-1">–</h2>
+      <small id="height-ts" class="text-muted">–</small>
+      <canvas id="spark-height" class="mt-3 sparkline" width="200" height="50"></canvas>
+    </div>
+  </div>
+
+  <div class="col-md-3">
+    <div class="card text-center p-3">
+      <h6 class="card-subtitle mb-2">Current Water Temperature<br/>(°C)</h6>
+      <h2 id="wtemp-value" class="mb-1">–</h2>
+      <small id="wtemp-ts" class="text-muted">–</small>
+      <canvas id="spark-wtemp" class="mt-3 sparkline" width="200" height="50"></canvas>
+    </div>
+  </div>
+
+  <div class="col-md-3">
+    <div class="card text-center p-3">
+      <h6 class="card-subtitle mb-2">Air Temperature<br/>(°C)</h6>
+      <h2 id="air-value" class="mb-1">–</h2>
+      <small id="air-ts" class="text-muted">–</small>
+      <canvas id="spark-air" class="mt-3 sparkline" width="200" height="50"></canvas>
+    </div>
   </div>
 </div>
+
+<!-- Cluster map -->
+<div class="card">
+  <div class="card-body">
+    <div id="cc-map" style="height: 350px;"></div>
+  </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script src="{{ url_for('static', filename='vendor/leaflet/leaflet.js') }}"></script>
+<script src="{{ url_for('static', filename='main.js') }}"></script>
+<script src="{{ url_for('static', filename='conditions.js') }}"></script>
+{% endblock %}

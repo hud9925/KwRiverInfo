@@ -12,7 +12,14 @@
   <!-- Your custom CSS -->
   <link rel="stylesheet"
         href="{{ url_for('static', filename='css/site.css') }}">
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js/dist/umd/supabase.min.js"></script>
+  <script> window.supabase = supabase.createClient(
+    "{{ SUPABASE_URL }}",
+    "{{ SUPABASE_ANON_KEY }}"
+  );
+</script>
 </head>
+
 <body>
   {% block content %}{% endblock %}
   <!-- Bootstrap JS Bundle -->
@@ -22,4 +29,5 @@
   <!-- Your custom JS -->
   <script src="{{ url_for('static', filename='js/site.js') }}"></script>
 </body>
+
 </html>
