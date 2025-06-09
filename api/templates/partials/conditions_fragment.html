@@ -1,5 +1,3 @@
-{% extends "base.html" %}
-{% block content %}
 <h1 class="h4 mb-4">Current Climatic Conditions</h1>
 
 <!-- Cluster selector -->
@@ -47,16 +45,11 @@
   </div>
 </div>
 
+</div>
+
 <!-- Cluster map -->
 <div class="card">
   <div class="card-body">
     <div id="cc-map" style="height: 350px;"></div>
   </div>
 </div>
-{% endblock %}
-
-{% block scripts %}
-<script src="{{ url_for('static', filename='vendor/leaflet/leaflet.js') }}"></script>
-<script src="{{ url_for('static', filename='main.js') }}"></script>
-<script src="{{ url_for('static', filename='conditions.js') }}"></script>
-{% endblock %}

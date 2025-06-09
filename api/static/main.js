@@ -75,7 +75,6 @@ const CLUSTERS = {
       "Nithburg","Wellesley Dam"
     ] };
   
-  
     // ─── Tab boilerplate ────────────────────────────────────────────────────────
   document.addEventListener('DOMContentLoaded', () => {
     loadTab('map');
@@ -89,290 +88,369 @@ const CLUSTERS = {
   });
 
   async function loadTab(name) {
-    showLoader();
-    try {
-      const html = await fetch(`/tabs/${name}`).then(r=>r.text());
-      document.getElementById('tab-content').innerHTML = html;
-      if (name === 'map')   initMapTab();
-      if (name === 'cond')  initConditionsTab();
-      if (name === 'adv')   initAdvisoriesTab();
-    } catch (e) {
-      console.error(e);
-    } finally {
-      hideLoader();
+  showLoader();
+  try {
+    const html = await fetch(`/tabs/${name}`).then(r => r.text());
+    document.getElementById('tab-content').innerHTML = html;
+
+    if (name === 'map') {
+      initMapTab();
     }
+    else if (name === 'cond') {
+      // after the HTML is in the DOM, now wire up Conditions
+      initConditions();
+    }
+    else if (name === 'adv') {
+      initAdvisoriesTab();
+    }
+  } finally {
+    hideLoader();
   }
+}
 
 
   
   /* ========================================================================
      1.  MAP TAB  
      ===================================================================== */
-  function initMapTab() {
-  const map = L.map('map').setView([43.5,-80.5],9);
-  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{maxZoom:16}).addTo(map);
- 
+    function initMapTab() {
+  const map = L.map('map').setView([43.5, -80.5], 9);
+  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    maxZoom: 16
+  }).addTo(map);
 
   const damIcon = L.icon({
     iconUrl: '/static/dam.png',
-    iconSize: [28, 28],      // up from [18,18]
-    iconAnchor: [14, 28],
-    popupAnchor: [0, -24]
+    iconSize: [28,28],
+    iconAnchor: [14,28],
+    popupAnchor: [0,-24]
   });
-
   const apIcon = L.icon({
-    iconUrl: '/static/access.png', // put your access‐point icon here
+    iconUrl: '/static/access.png',
     iconSize: [24,24],
     iconAnchor: [12,24],
-    popupAnchor: [0, -20]
+    popupAnchor: [0,-20]
   });
 
-  const damLayer = L.layerGroup().addTo(map);
+  const damLayer    = L.layerGroup().addTo(map);
   const accessLayer = L.layerGroup().addTo(map);
 
-
-  fetch('/api/dams')
-  .then(r=>r.json())
-  .then(dams => {
-    dams.forEach(d => {
-      L.marker([d.lat, d.lon], { icon: damIcon })
-        .addTo(damLayer)
-        .bindPopup(`<strong>${d.name}</strong><br>
-                    <a href="https://www.google.com/maps?q=${d.lat},${d.lon}"
-                       target="_blank">Get directions</a>`);
-    });
-  });
-    // additional dams that were not in the KiWIS API
-    const DAM_NAMES = new Set([
-      "Three Bridges Dam",
-      "Penman’s Dam"
+  // helper to recompute bounds whenever markers change
+  const updateBounds = () => {
+    const markers = L.featureGroup([
+      ...damLayer.getLayers(),
+      ...accessLayer.getLayers()
     ]);
-    // access point layer
+    if (markers.getLayers().length) {
+      map.fitBounds(markers.getBounds().pad(0.1));
+    }
+  };
 
-    ACCESS_POINTS.forEach(pt => {
-  // choose layer based on whether this point is actually a dam
-  const targetLayer = DAM_NAMES.has(pt.name)
-    ? damLayer
-    : accessLayer;
+  // 1) fetch your DAMs API, add to damLayer
+  fetch('/api/dams')
+    .then(r => r.json())
+    .then(dams => {
+      dams.forEach(d => {
+        L.marker([d.lat, d.lon], { icon: damIcon })
+          .addTo(damLayer)
+          .bindPopup(`<strong>${d.name}</strong><br>
+            <a href="https://www.google.com/maps?q=${d.lat},${d.lon}" target="_blank">
+              Get directions
+            </a>`);
+      });
+      updateBounds();
+    })
+    .catch(console.error);
 
-  L.marker([pt.lat, pt.lon], {
-    icon: DAM_NAMES.has(pt.name) ? damIcon : apIcon
-  })
-  .addTo(targetLayer)
-  .bindPopup(`
-    <strong>${pt.name}</strong><br>
-    <a href="https://www.google.com/maps?q=${pt.lat},${pt.lon}" target="_blank">
-      Get directions
-    </a>
-  `);
-    });
-    // ACCESS_POINTS.forEach(pt => {
-    
-    //   const m = L.marker([pt.lat, pt.lon], { icon: apIcon })
-    //   .bindPopup(`
-    //     <strong>${pt.name}</strong><br>
-    //     <a href="https://www.google.com/maps?q=${pt.lat},${pt.lon}"
-    //        target="_blank">Get directions</a>
-    //   `);
-    // accessLayer.addLayer(m);
-    // });
+  // 2) static access points
+  const DAM_NAMES = new Set([ "Three Bridges Dam", "Penman’s Dam" ]);
+  ACCESS_POINTS.forEach(pt => {
+    const isDam = DAM_NAMES.has(pt.name);
+    L.marker([pt.lat, pt.lon], { icon: isDam ? damIcon : apIcon })
+      .addTo(isDam ? damLayer : accessLayer)
+      .bindPopup(`
+        <strong>${pt.name}</strong><br>
+        <a href="https://www.google.com/maps?q=${pt.lat},${pt.lon}" target="_blank">
+          Get directions
+        </a>
+      `);
+  });
+  updateBounds();
 
-      // 5) add a layer‐control in the top‐right
-    L.control.layers(
-      null,
-      { 
-        "Dams": damLayer,
-        "Access Points": accessLayer
-      },
-      { collapsed: false }
-    ).addTo(map);
-
-    // 6) fit to show everything
-    const all = L.featureGroup([ damLayer, accessLayer ]);
-
-    
-
-    map.fitBounds(all.getBounds().pad(0.1));
-
+  // 3) add the layer control
+  L.control.layers(
+    null,
+    { "Dams": damLayer, "Access Points": accessLayer },
+    { collapsed: false }
+  ).addTo(map);
 }
+
+
+     //   function initMapTab() {
+//   const map = L.map('map').setView([43.5,-80.5],9);
+//   L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{maxZoom:16}).addTo(map);
+ 
+
+//   const damIcon = L.icon({
+//     iconUrl: '/static/dam.png',
+//     iconSize: [28, 28],      // up from [18,18]
+//     iconAnchor: [14, 28],
+//     popupAnchor: [0, -24]
+//   });
+
+//   const apIcon = L.icon({
+//     iconUrl: '/static/access.png', // put your access‐point icon here
+//     iconSize: [24,24],
+//     iconAnchor: [12,24],
+//     popupAnchor: [0, -20]
+//   });
+
+//   const damLayer = L.layerGroup().addTo(map);
+//   const accessLayer = L.layerGroup().addTo(map);
+
+
+//   fetch('/api/dams')
+//   .then(r=>r.json())
+//   .then(dams => {
+//     dams.forEach(d => {
+//       L.marker([d.lat, d.lon], { icon: damIcon })
+//         .addTo(damLayer)
+//         .bindPopup(`<strong>${d.name}</strong><br>
+//                     <a href="https://www.google.com/maps?q=${d.lat},${d.lon}"
+//                        target="_blank">Get directions</a>`);
+//     });
+//   });
+//     // additional dams that were not in the KiWIS API
+//     const DAM_NAMES = new Set([
+//       "Three Bridges Dam",
+//       "Penman’s Dam"
+//     ]);
+//     // access point layer
+
+//     ACCESS_POINTS.forEach(pt => {
+//   // choose layer based on whether this point is actually a dam
+//   const targetLayer = DAM_NAMES.has(pt.name)
+//     ? damLayer
+//     : accessLayer;
+
+//   L.marker([pt.lat, pt.lon], {
+//     icon: DAM_NAMES.has(pt.name) ? damIcon : apIcon
+//   })
+//   .addTo(targetLayer)
+//   .bindPopup(`
+//     <strong>${pt.name}</strong><br>
+//     <a href="https://www.google.com/maps?q=${pt.lat},${pt.lon}" target="_blank">
+//       Get directions
+//     </a>
+//   `);
+//     });
+//     // ACCESS_POINTS.forEach(pt => {
+    
+//     //   const m = L.marker([pt.lat, pt.lon], { icon: apIcon })
+//     //   .bindPopup(`
+//     //     <strong>${pt.name}</strong><br>
+//     //     <a href="https://www.google.com/maps?q=${pt.lat},${pt.lon}"
+//     //        target="_blank">Get directions</a>
+//     //   `);
+//     // accessLayer.addLayer(m);
+//     // });
+
+//       // 5) add a layer‐control in the top‐right
+//     L.control.layers(
+//       null,
+//       { 
+//         "Dams": damLayer,
+//         "Access Points": accessLayer
+//       },
+//       { collapsed: false }
+//     ).addTo(map);
+
+//     // 6) fit to show everything
+//     const all = L.featureGroup([ damLayer, accessLayer ]);
+
+    
+
+//     map.fitBounds(all.getBounds().pad(0.1));
+
+// }
   
   /* ========================================================================
-     2.  CURRENT CONDITIONS TAB
-     ===================================================================== */
-    let ccAllFeatures = [], ccMap;
+    //  2.  CURRENT CONDITIONS TAB
+    //  ===================================================================== */
+    // let ccAllFeatures = [], ccMap;
 
-    function initConditionsTab() {
-      if (!ccMap) {
-        ccMap = L.map('cc-map', { zoomControl: false, attributionControl: false })
-                  .setView([43.5, -80.5], 9);
-        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', { maxZoom: 16 })
-          .addTo(ccMap);
-      }
+    // function initConditionsTab() {
+    //   if (!ccMap) {
+    //     ccMap = L.map('cc-map', { zoomControl: false, attributionControl: false })
+    //               .setView([43.5, -80.5], 9);
+    //     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', { maxZoom: 16 })
+    //       .addTo(ccMap);
+    //   }
 
-      if (ccAllFeatures.length === 0) {
-        showLoader();
-        fetch('/api/stations')
-          .then(r => r.json())
-          .then(j => ccAllFeatures = j.features)
-          .finally(() => {
-            buildClusterDropdown();
-            bindParamButtons();
-            renderCluster('All');
-            hideLoader();
-          });
-      } else {
-        buildClusterDropdown();
-        bindParamButtons();
-        renderCluster('All');
-      }
-    }
+    //   if (ccAllFeatures.length === 0) {
+    //     showLoader();
+    //     fetch('/api/stations')
+    //       .then(r => r.json())
+    //       .then(j => ccAllFeatures = j.features)
+    //       .finally(() => {
+    //         buildClusterDropdown();
+    //         bindParamButtons();
+    //         renderCluster('All');
+    //         hideLoader();
+    //       });
+    //   } else {
+    //     buildClusterDropdown();
+    //     bindParamButtons();
+    //     renderCluster('All');
+    //   }
+    // }
 
-    function buildClusterDropdown() {
-      const sel = document.getElementById('cluster-select');
-      sel.innerHTML = `<option value="All">All clusters</option>` +
-                      Object.keys(CLUSTERS).map(c =>
-                        `<option value="${c}">${c}</option>`
-                      ).join('');
-      sel.onchange = () => renderCluster(sel.value);
-    }
+    // function buildClusterDropdown() {
+    //   const sel = document.getElementById('cluster-select');
+    //   sel.innerHTML = `<option value="All">All clusters</option>` +
+    //                   Object.keys(CLUSTERS).map(c =>
+    //                     `<option value="${c}">${c}</option>`
+    //                   ).join('');
+    //   sel.onchange = () => renderCluster(sel.value);
+    // }
 
-    function bindParamButtons() {
-      document.querySelectorAll('[data-param]').forEach(btn => {
-        btn.onclick = () => {
-          document.querySelectorAll('[data-param]').forEach(b => b.classList.remove('active'));
-          btn.classList.add('active');
-          const filter = btn.dataset.param;
-          document.querySelectorAll('#cc-stations-container .card').forEach(card => {
-            const types = card.dataset.paramtype.split(',');
-            card.style.display = (filter === 'all' || types.includes(filter))
-                                ? '' : 'none';
-          });
-        };
-      });
-    }
+    // function bindParamButtons() {
+    //   document.querySelectorAll('[data-param]').forEach(btn => {
+    //     btn.onclick = () => {
+    //       document.querySelectorAll('[data-param]').forEach(b => b.classList.remove('active'));
+    //       btn.classList.add('active');
+    //       const filter = btn.dataset.param;
+    //       document.querySelectorAll('#cc-stations-container .card').forEach(card => {
+    //         const types = card.dataset.paramtype.split(',');
+    //         card.style.display = (filter === 'all' || types.includes(filter))
+    //                             ? '' : 'none';
+    //       });
+    //     };
+    //   });
+    // }
 
-    async function renderCluster(name) {
-      const container = document.getElementById('cc-stations-container');
-      container.innerHTML = '';
-      showLoader();
+    // async function renderCluster(name) {
+    //   const container = document.getElementById('cc-stations-container');
+    //   container.innerHTML = '';
+    //   showLoader();
 
-      // 1) filter + draw mini‑map
-      const subset = name === 'All'
-        ? ccAllFeatures
-        : ccAllFeatures.filter(f => CLUSTERS[name]?.includes(f.properties.station_name));
-      ccMap.eachLayer(l => l instanceof L.CircleMarker && ccMap.removeLayer(l));
-      const pts = subset.map(f => [f.geometry.coordinates[1], f.geometry.coordinates[0]]);
-      pts.forEach(ll => L.circleMarker(ll,{ radius:5 }).addTo(ccMap));
-      if (pts.length) ccMap.fitBounds(pts);
+    //   // 1) filter + draw mini‑map
+    //   const subset = name === 'All'
+    //     ? ccAllFeatures
+    //     : ccAllFeatures.filter(f => CLUSTERS[name]?.includes(f.properties.station_name));
+    //   ccMap.eachLayer(l => l instanceof L.CircleMarker && ccMap.removeLayer(l));
+    //   const pts = subset.map(f => [f.geometry.coordinates[1], f.geometry.coordinates[0]]);
+    //   pts.forEach(ll => L.circleMarker(ll,{ radius:5 }).addTo(ccMap));
+    //   if (pts.length) ccMap.fitBounds(pts);
 
-      // 2) no‑stations guard
-      const ids = subset.map(f => f.properties.db_id);
-      if (!ids.length) {
-        container.innerHTML = `<div class="text-muted">No stations in this cluster</div>`;
-        hideLoader();
-        return;
-      }
+    //   // 2) no‑stations guard
+    //   const ids = subset.map(f => f.properties.db_id);
+    //   if (!ids.length) {
+    //     container.innerHTML = `<div class="text-muted">No stations in this cluster</div>`;
+    //     hideLoader();
+    //     return;
+    //   }
 
-      // 3) fetch latest & history in parallel
-      const qs = ids.map(id => `station_id=${id}`).join('&');
-      let latest, history;
-      try {
-        [ latest, history ] = await Promise.all([
-          fetch(`/api/cluster/latest?${qs}`).then(r => r.json()),
-          fetch(`/api/cluster/history?${qs}`).then(r => r.json())
-        ]);
-      } catch (err) {
-        container.innerHTML = `<div class="text-danger">Error loading data</div>`;
-        hideLoader();
-        return;
-      }
-      hideLoader();
+    //   // 3) fetch latest & history in parallel
+    //   const qs = ids.map(id => `station_id=${id}`).join('&');
+    //   let latest, history;
+    //   try {
+    //     [ latest, history ] = await Promise.all([
+    //       fetch(`/api/cluster/latest?${qs}`).then(r => r.json()),
+    //       fetch(`/api/cluster/history?${qs}`).then(r => r.json())
+    //     ]);
+    //   } catch (err) {
+    //     container.innerHTML = `<div class="text-danger">Error loading data</div>`;
+    //     hideLoader();
+    //     return;
+    //   }
+    //   hideLoader();
 
-      // 4) build a flat history lookup
-      const byHistory = {};
-      history.forEach(h => {
-        const key = `${h.station}|${h.parameter}`;
-        // map each point to its numeric value
-        byHistory[key] = h.points.map(pt => pt.v);
-      });
+    //   // 4) build a flat history lookup
+    //   const byHistory = {};
+    //   history.forEach(h => {
+    //     const key = `${h.station}|${h.parameter}`;
+    //     // map each point to its numeric value
+    //     byHistory[key] = h.points.map(pt => pt.v);
+    //   });
 
-      // 5) group latest rows by station
-      const byLatest = {};
-      latest.forEach(r => {
-        byLatest[r.station] = byLatest[r.station] || [];
-        byLatest[r.station].push(r);
-      });
+    //   // 5) group latest rows by station
+    //   const byLatest = {};
+    //   latest.forEach(r => {
+    //     byLatest[r.station] = byLatest[r.station] || [];
+    //     byLatest[r.station].push(r);
+    //   });
 
-      // 6) render one card per station
-      Object.entries(byLatest).forEach(([station, readings]) => {
-        // determine param types for filtering
-        const types = [...new Set(readings.map(r => {
-          if (/Air/.test(r.parameter_fullname))      return 'Air';
-          if (/Water|Discharge/.test(r.parameter_fullname)) return 'Water';
-          if (/Wind/.test(r.parameter_fullname))     return 'Wind';
-          return 'Other';
-        }))];
+    //   // 6) render one card per station
+    //   Object.entries(byLatest).forEach(([station, readings]) => {
+    //     // determine param types for filtering
+    //     const types = [...new Set(readings.map(r => {
+    //       if (/Air/.test(r.parameter_fullname))      return 'Air';
+    //       if (/Water|Discharge/.test(r.parameter_fullname)) return 'Water';
+    //       if (/Wind/.test(r.parameter_fullname))     return 'Wind';
+    //       return 'Other';
+    //     }))];
 
-        const card = document.createElement('div');
-        card.className = 'card mb-3';
-        card.dataset.paramtype = types.join(',');
-        card.innerHTML = `
-          <div class="card-header"><h6 class="mb-0">${station}</h6></div>
-          <div class="card-body p-2">
-            <table class="table table-sm mb-0">
-              <thead>
-                <tr>
-                  <th>Parameter</th><th>Value</th><th>Trend</th>
-                  <th>Unit</th><th>Time</th><th>6‑Hour Trend</th>
-                </tr>
-              </thead>
-              <tbody>
-                ${readings.map(r => {
-                  const prev  = r.prev_value ?? r.value;
-                  const arrow = r.value > prev ? '↑' : r.value < prev ? '↓' : '→';
-                  return `
-                    <tr>
-                      <td>${r.parameter_fullname}</td>
-                      <td>${r.value.toFixed(1)}</td>
-                      <td>${arrow}</td>
-                      <td>${r.unit}</td>
-                      <td>${new Date(r.timestamp).toLocaleTimeString()}</td>
-                      <td><canvas class="sparkline" width="80" height="20"></canvas></td>
-                    </tr>`;
-                }).join('')}
-              </tbody>
-            </table>
-          </div>`;
+    //     const card = document.createElement('div');
+    //     card.className = 'card mb-3';
+    //     card.dataset.paramtype = types.join(',');
+    //     card.innerHTML = `
+    //       <div class="card-header"><h6 class="mb-0">${station}</h6></div>
+    //       <div class="card-body p-2">
+    //         <table class="table table-sm mb-0">
+    //           <thead>
+    //             <tr>
+    //               <th>Parameter</th><th>Value</th><th>Trend</th>
+    //               <th>Unit</th><th>Time</th><th>6‑Hour Trend</th>
+    //             </tr>
+    //           </thead>
+    //           <tbody>
+    //             ${readings.map(r => {
+    //               const prev  = r.prev_value ?? r.value;
+    //               const arrow = r.value > prev ? '↑' : r.value < prev ? '↓' : '→';
+    //               return `
+    //                 <tr>
+    //                   <td>${r.parameter_fullname}</td>
+    //                   <td>${r.value.toFixed(1)}</td>
+    //                   <td>${arrow}</td>
+    //                   <td>${r.unit}</td>
+    //                   <td>${new Date(r.timestamp).toLocaleTimeString()}</td>
+    //                   <td><canvas class="sparkline" width="80" height="20"></canvas></td>
+    //                 </tr>`;
+    //             }).join('')}
+    //           </tbody>
+    //         </table>
+    //       </div>`;
 
-        container.appendChild(card);
+    //     container.appendChild(card);
 
-        // draw each sparkline
-        card.querySelectorAll('.sparkline').forEach((cnv,i) => {
-          const param = readings[i].parameter_fullname;
-          const key   = `${station}|${param}`;
-          const series= byHistory[key] || [];
-          if (series.length > 1) {
-            drawSparkline(cnv, series);
-          } else {
-            cnv.parentElement.textContent = '–';
-          }
-        });
-      });
-    }
+    //     // draw each sparkline
+    //     card.querySelectorAll('.sparkline').forEach((cnv,i) => {
+    //       const param = readings[i].parameter_fullname;
+    //       const key   = `${station}|${param}`;
+    //       const series= byHistory[key] || [];
+    //       if (series.length > 1) {
+    //         drawSparkline(cnv, series);
+    //       } else {
+    //         cnv.parentElement.textContent = '–';
+    //       }
+    //     });
+    //   });
+    // }
      
-     // ─── Sparkline utility ────────────────────────────────────────────────────
-     function drawSparkline(canvas, data) {
-      const ctx = canvas.getContext('2d'),
-            w   = canvas.width, h = canvas.height,
-            min = Math.min(...data), max = Math.max(...data);
-      ctx.beginPath();
-      data.forEach((v,i) => {
-        const x = (i/(data.length-1))*w,
-              y = h - ((v-min)/(max-min))*h;
-        i===0 ? ctx.moveTo(x,y) : ctx.lineTo(x,y);
-      });
-      ctx.stroke();
-    }
+    //  // ─── Sparkline utility ────────────────────────────────────────────────────
+    //  function drawSparkline(canvas, data) {
+    //   const ctx = canvas.getContext('2d'),
+    //         w   = canvas.width, h = canvas.height,
+    //         min = Math.min(...data), max = Math.max(...data);
+    //   ctx.beginPath();
+    //   data.forEach((v,i) => {
+    //     const x = (i/(data.length-1))*w,
+    //           y = h - ((v-min)/(max-min))*h;
+    //     i===0 ? ctx.moveTo(x,y) : ctx.lineTo(x,y);
+    //   });
+    //   ctx.stroke();
+    // }
      
      // ─── 3. Advisories stub ───────────────────────────────────────────────────
      function initAdvisoriesTab() {

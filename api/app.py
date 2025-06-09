@@ -110,7 +110,7 @@ def create_app():
         ])
     TAB_TEMPLATES = {
       "map": "map_tab.html",
-      "cond": "conditions_tab.html",   
+      "cond": "partials/conditions_fragment.html",   
       "adv": "advisories_tab.html"     
     }
     @app.route("/tabs/<name>")
