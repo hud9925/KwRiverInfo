@@ -25,6 +25,16 @@ def create_app():
     db.init_app(app)
     Migrate(app, db)      # enables `flask db` commands
 
+    @app.context_processor
+    def inject_supabase():
+        return {
+            "SUPABASE_URL":      app.config["SUPABASE_URL"],
+            "SUPABASE_ANON_KEY": app.config["SUPABASE_ANON_KEY"]
+        }
+    
+    
+    
+    
     # ─── Load our station‐metadata JSON ───────────────────────────────────────
     BASE_DIR = Path(__file__).resolve().parent.parent  
     META_PATH = BASE_DIR / "station_timeseries_metadata.json"
@@ -197,7 +207,7 @@ def create_app():
         }
         data = requests.get(url, params=params, timeout=20).json()
 
-        # 2) filter to only your DAMs (by your station_type tag)
+        # 2) filter to only DAMs (by station_type tag)
         dams = []
         for feat in data["features"]:
             props = feat["properties"]
