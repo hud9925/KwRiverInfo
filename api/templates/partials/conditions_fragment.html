@@ -1,55 +1,87 @@
 <h1 class="h4 mb-4">Current Climatic Conditions</h1>
 
-<!-- Cluster selector -->
-<div class="mb-4">
-  <label for="cluster-select" class="form-label">Choose Cluster</label>
-  <select id="cluster-select" class="form-select w-50"></select>
+<div class="row">
+  <!-- ────────── LEFT  (cards + charts) ────────── -->
+  <div class="col-lg-8">
+    <select id="cluster-select" class="form-select mb-4 w-50"></select>
+
+    <!-- ── value cards row ── -->
+    <div class="row g-3 mb-3">
+      <!-- Discharge -->
+      <div class="col-6 col-md-3">
+        <div class="card shadow-sm p-3 h-100 text-center border-top border-4" style="border-top-color:#20c997;">
+          <h6 class="card-subtitle text-muted mb-2">Water Discharge <small>(m³/s)</small></h6>
+          <h2 id="disc-value" class="mb-0">–</h2>
+          <span id="disc-arrow" class="badge bg-light text-dark">—</span><br>
+          <small id="disc-ts" class="text-muted"></small>
+          <small class="d-block mt-2 lh-sm">
+            <span class="legend-box" style="background:green"></span>
+            0 – 10 <span class="text-muted">(normal/slow)</span><br>
+            <span class="legend-box" style="background:goldenrod"></span>
+            10 – 20 <span class="text-muted">(fast – caution)</span><br>
+            <span class="legend-box" style="background:red"></span>
+            20 + <span class="text-danger">(turbid / flood risk)</span>
+          </small>
+        </div>
+      </div>
+
+      <!-- River Height -->
+      <div class="col-6 col-md-3">
+        <div class="card shadow-sm p-3 h-100 text-center border-top border-4" style="border-top-color:#6f42c1;">
+          <h6 class="card-subtitle text-muted mb-2">River Height <small>(m)</small></h6>
+          <h2 id="height-value" class="mb-0">–</h2>
+          <span id="height-arrow" class="badge bg-light text-dark">—</span><br>
+          <small id="height-ts" class="text-muted"></small>
+        </div>
+      </div>
+
+      <!-- Water Temp -->
+      <div class="col-6 col-md-3">
+        <div class="card shadow-sm p-3 h-100 text-center border-top border-4" style="border-top-color:#fd7e14;">
+          <h6 class="card-subtitle text-muted mb-2">Water Temp <small>(°C)</small></h6>
+          <h2 id="wtemp-value" class="mb-0">–</h2>
+          <span id="wtemp-arrow" class="badge bg-light text-dark">—</span><br>
+          <small id="wtemp-ts" class="text-muted"></small>
+        </div>
+      </div>
+
+      <!-- Air Temp -->
+      <div class="col-6 col-md-3">
+        <div class="card shadow-sm p-3 h-100 text-center border-top border-4" style="border-top-color:#6c757d;">
+          <h6 class="card-subtitle text-muted mb-2">Air Temp <small>(°C)</small></h6>
+          <h2 id="air-value" class="mb-0">–</h2>
+          <span id="air-arrow" class="badge bg-light text-dark">—</span><br>
+          <small id="air-ts" class="text-muted"></small>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── charts row ── -->
+    <div class="row g-3" id="chart-row">
+      <div class="col-6 col-md-3"><canvas id="chart-disc"  class="w-100 border rounded" style="height:100px;background:#fafafa;"></canvas></div>
+      <div class="col-6 col-md-3"><canvas id="chart-height" class="w-100 border rounded" style="height:100px;background:#fafafa;"></canvas></div>
+      <div class="col-6 col-md-3"><canvas id="chart-wtemp"  class="w-100 border rounded" style="height:100px;background:#fafafa;"></canvas></div>
+      <div class="col-6 col-md-3"><canvas id="chart-air"   class="w-100 border rounded" style="height:100px;background:#fafafa;"></canvas></div>
+    </div>
+  </div>
+
+  
+
+  <!-- ────────── RIGHT (map) ────────── -->
+  <div class="col-lg-4 mt-4 mt-lg-0">
+    <div id="cc-map" style="height:450px; border:1px solid #ddd;"></div>
+    <p class="mt-2">
+      <i class="legend-box" style="background:blue"></i> Climatic monitoring stations
+    </p>
+  </div>
 </div>
 
-<!-- 4 value cards + sparklines -->
-<div class="row g-3 mb-5" id="cluster-summary">
-  <div class="col-md-3">
-    <div class="card text-center p-3">
-      <h6 class="card-subtitle mb-2">Current Water Discharge<br/>(m³/s)</h6>
-      <h2 id="disc-value" class="mb-1">–</h2>
-      <small id="disc-ts" class="text-muted">–</small>
-      <canvas id="spark-disc" class="mt-3 sparkline" width="200" height="50"></canvas>
+<!-- ── DATA DISCLAIMER ─────────────────────────────────────────── -->
+<div class="row mt-4">
+  <div class="col-12">
+    <div class="alert alert-warning small">
+      <strong>Provisional Data:</strong> These readings are collected in real-time and have not been reviewed or edited. They are subject to change and may not be fully accurate. Factors such as ice or debris backwater, equipment malfunctions, or sediment buildup can affect river level and flow data, and debris or freezing conditions can affect rainfall gauges.<br><br>
+      <strong>Caution:</strong> River conditions can change rapidly. Do not use this information alone for decisions concerning personal or public safety or the conduct of business.
     </div>
-  </div>
-
-  <div class="col-md-3">
-    <div class="card text-center p-3">
-      <h6 class="card-subtitle mb-2">Current River Height<br/>(m)</h6>
-      <h2 id="height-value" class="mb-1">–</h2>
-      <small id="height-ts" class="text-muted">–</small>
-      <canvas id="spark-height" class="mt-3 sparkline" width="200" height="50"></canvas>
-    </div>
-  </div>
-
-  <div class="col-md-3">
-    <div class="card text-center p-3">
-      <h6 class="card-subtitle mb-2">Current Water Temperature<br/>(°C)</h6>
-      <h2 id="wtemp-value" class="mb-1">–</h2>
-      <small id="wtemp-ts" class="text-muted">–</small>
-      <canvas id="spark-wtemp" class="mt-3 sparkline" width="200" height="50"></canvas>
-    </div>
-  </div>
-
-  <div class="col-md-3">
-    <div class="card text-center p-3">
-      <h6 class="card-subtitle mb-2">Air Temperature<br/>(°C)</h6>
-      <h2 id="air-value" class="mb-1">–</h2>
-      <small id="air-ts" class="text-muted">–</small>
-      <canvas id="spark-air" class="mt-3 sparkline" width="200" height="50"></canvas>
-    </div>
-  </div>
-</div>
-
-</div>
-
-<!-- Cluster map -->
-<div class="card">
-  <div class="card-body">
-    <div id="cc-map" style="height: 350px;"></div>
   </div>
 </div>

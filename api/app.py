@@ -109,9 +109,9 @@ def create_app():
             for row in rows
         ])
     TAB_TEMPLATES = {
-      "map": "map_tab.html",
-      "cond": "partials/conditions_fragment.html",   
-      "adv": "advisories_tab.html"     
+        "map":  "partials/map_fragment.html",
+        "cond": "partials/conditions_fragment.html"
+        # "adv":  "partials/advisories_fragment.html"     
     }
     @app.route("/tabs/<name>")
     def serve_tab(name):
