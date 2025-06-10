@@ -91,23 +91,12 @@ const CLUSTERS = {
 
   async function loadTab(name) {
   showLoader();
-  try {
-    const html = await fetch(`/tabs/${name}`).then(r => r.text());
-    document.getElementById('tab-content').innerHTML = html;
-
-    if (name === 'map') {
-      initMapTab();
-    }
-    else if (name === 'cond') {
-      // after the HTML is in the DOM, now wire up Conditions
-      initConditions();
-    }
-    else if (name === 'adv') {
-      initAdvisoriesTab();
-    }
-  } finally {
-    hideLoader();
-  }
+  const html = await fetch(`/tabs/${name}`).then(r=>r.text());
+  document.getElementById('tab-content').innerHTML = html;
+  if (name === 'map') initMapTab();
+  else if (name === 'cond')  initConditions();
+  else if (name === 'adv') initAdvisoriesTab();
+  hideLoader();
 }
 
 
@@ -115,58 +104,51 @@ const CLUSTERS = {
   /* ========================================================================
      1.  MAP TAB  
      ===================================================================== */
-    function initMapTab() {
-  const map = L.map('map').setView([43.5, -80.5], 9);
+  let damMap;  // hold our Leaflet instance
+function initMapTab() {
+  // 1) If an old map exists (bound to a removed DOM node), destroy it
+  if (damMap) {
+    damMap.remove();
+    damMap = null;
+  }
+
+  // 2) Re-create the map in your new #main-map container
+  damMap = L.map('main-map').setView([43.5, -80.5], 9);
   L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
     maxZoom: 16
-  }).addTo(map);
+  }).addTo(damMap);
 
+  // 3) Prepare icons
   const damIcon = L.icon({
     iconUrl: '/static/dam.png',
-    iconSize: [28,28],
+    iconSize:   [28,28],
     iconAnchor: [14,28],
-    popupAnchor: [0,-24]
+    popupAnchor:[0,-24]
   });
   const apIcon = L.icon({
     iconUrl: '/static/access.png',
-    iconSize: [24,24],
+    iconSize:   [24,24],
     iconAnchor: [12,24],
-    popupAnchor: [0,-20]
+    popupAnchor:[0,-20]
   });
 
-  const damLayer    = L.layerGroup().addTo(map);
-  const accessLayer = L.layerGroup().addTo(map);
-  window.STATIC_DAMS.forEach(d => {
-    L.marker([d.lat, d.lon], { icon: damIcon })
-     .addTo(damLayer)
-     .bindPopup(`<strong>${d.name}</strong>`);
-  });
+  // 4) Create layer groups
+  const damLayer    = L.layerGroup().addTo(damMap);
+  const accessLayer = L.layerGroup().addTo(damMap);
 
-  // helper to recompute bounds whenever markers change
-  const updateBounds = () => {
-    const markers = L.featureGroup([
-      ...damLayer.getLayers(),
-      ...accessLayer.getLayers()
-    ]);
-    if (markers.getLayers().length) {
-      map.fitBounds(markers.getBounds().pad(0.1));
-    }
-  };
-
-  // 1) fetch  DAMs API, add to damLayer
+  // 5) Plot your **static** dams list (window.STATIC_DAMS)
   window.STATIC_DAMS.forEach(d => {
     L.marker([d.lat, d.lon], { icon: damIcon })
       .addTo(damLayer)
       .bindPopup(`
         <strong>${d.name}</strong><br>
-        <a href="https://www.google.com/maps?q=${d.lat},${d.lon}"
-           target="_blank">
+        <a href="https://www.google.com/maps?q=${d.lat},${d.lon}" target="_blank">
           Get directions
         </a>
       `);
   });
 
-  // 2) static access points
+  // 6) Plot your ACCESS_POINTS list
   const DAM_NAMES = new Set([ "Three Bridges Dam", "Penman’s Dam" ]);
   ACCESS_POINTS.forEach(pt => {
     const isDam = DAM_NAMES.has(pt.name);
@@ -179,15 +161,24 @@ const CLUSTERS = {
         </a>
       `);
   });
-  updateBounds();
 
-  // 3) add the layer control
-  L.control.layers(
-    null,
-    { "Dams": damLayer, "Access Points": accessLayer },
-    { collapsed: false }
-  ).addTo(map);
+  // 7) Layer control toggle
+  L.control
+    .layers(null, { "Dams": damLayer, "Access Points": accessLayer }, { collapsed: false })
+    .addTo(damMap);
+
+  // 8) Fit map to show all markers
+  const allMarkers = L.featureGroup([
+    ...damLayer.getLayers(),
+    ...accessLayer.getLayers()
+  ]);
+  if (allMarkers.getLayers().length) {
+    damMap.fitBounds(allMarkers.getBounds().pad(0.1));
+  }
 }
+
+
+
 
 
      //   function initMapTab() {
@@ -457,9 +448,9 @@ const CLUSTERS = {
     // }
      
      // ─── 3. Advisories stub ───────────────────────────────────────────────────
-     function initAdvisoriesTab() {
-       document.getElementById('tab-content')
-         .insertAdjacentHTML('beforeend',
-           '<div class="alert alert-info">Advisory view coming soon.</div>');
-     }
+    //  function initAdvisoriesTab() {
+    //    document.getElementById('tab-content')
+    //      .insertAdjacentHTML('beforeend',
+    //        '<div class="alert alert-info">Advisory view coming soon.</div>');
+    //  }
   

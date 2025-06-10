@@ -1,5 +1,4 @@
-// api/static/conditions.js
-
+// 0) Parameter ↔ exact DB name map
 const PARAM_MAP = {
   disc:   'Discharge – River (cms)',
   height: 'Height – River Stage',
@@ -7,119 +6,160 @@ const PARAM_MAP = {
   air:    'Temperature – Air'
 };
 
+const HOURS = 6;
+const chartRegistry = {};  
+
+// Utility: draw a 6-hour line chart with axes
+function drawChart(key, labels, data, unit) {
+  const id = `chart-${key}`, canvas = document.getElementById(id);
+  if (!canvas) return;
+  if (chartRegistry[id]) chartRegistry[id].destroy();
+
+  const ctx = canvas.getContext('2d');
+  chartRegistry[id] = new Chart(ctx, {
+    type: 'line',
+    data: { labels, datasets: [{ label: unit, data, borderColor:'#007bff', fill:false, tension:0.3, pointRadius:2 }] },
+    options: {
+      responsive: false,
+      maintainAspectRatio: false,
+      scales: {
+        x: { display: true, title: { display: true, text: 'Time' } },
+        y: { display: true, title: { display: true, text: unit } }
+      },
+      plugins: { legend: { display: false } },
+      elements: { line: { spanGaps: true } }
+    }
+  });
+}
+
+// Initialize the conditions tab
 async function initConditions() {
-  // 1) Grab *all* cluster_name rows, in order
-  const { data: raw, error } = await supabase
+  const sel = document.getElementById('cluster-select');
+  if (!sel) return console.error('Missing selector');
+
+  // 1) fetch + dedupe clusters
+  let { data: raw = [], error } = await supabase
     .from('station_clusters')
     .select('cluster_name')
     .order('cluster_name', { ascending: true });
-
-  if (error) {
-    console.error("Error loading clusters:", error);
-    return;
-  }
-
-  // 2) Normalize & dedupe
-  //    - trim whitespace
-  //    - keep only the first appearance of each name
-  const seen = new Set();
-  const clusters = raw
+  if (error) return console.error(error);
+  const seen = new Set(), clusters = raw
     .map(r => r.cluster_name.trim())
-    .filter(name => {
-      if (seen.has(name)) return false;
-      seen.add(name);
-      return true;
-    });
-
-  // 3) Populate the <select>
-  const sel = document.getElementById('cluster-select');
-  sel.innerHTML = clusters
-    .map(name => `<option value="${name}">${name}</option>`)
-    .join('');
+    .filter(n => n && !seen.has(n) && seen.add(n));
+  sel.innerHTML = clusters.map(n=>`<option>${n}</option>`).join('');
   sel.onchange = () => loadCluster(sel.value);
 
-  // 4) Init the map (only once)
+  // 2) init map + legend once
   if (!window.ccMap) {
-    window.ccMap = L.map('cc-map').setView([43.5, -80.5], 9);
-    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png')
-      .addTo(ccMap);
+    window.ccMap = L.map('cc-map').setView([43.5,-80.5],9);
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(ccMap);
+    L.control({ position:'bottomright' }).onAdd = ()=>{
+      const div=L.DomUtil.create('div','legend');
+      div.innerHTML='<i class="legend-box" style="background:blue"></i> Climatic monitoring stations';
+      return div;
+    };
+    L.control.layers().addTo(ccMap);
   }
 
-  // 5) Auto‐load the first cluster
-  if (clusters.length) {
-    loadCluster(clusters[0]);
+  // 3) first load
+  if (clusters.length) loadCluster(clusters[0]);
+}
+// helper: ensure ccMap exists and is bound to the current DOM node
+function ensureMap() {
+  if (window.ccMap && !document.getElementById(window.ccMap.getContainer().id)) {
+    window.ccMap.remove();          // old instance tied to old DOM
+    window.ccMap = null;
+  }
+  if (!window.ccMap) {
+    window.ccMap = L.map('cc-map').setView([43.5,-80.5],9);
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(ccMap);
+    L.control({ position:'bottomright' }).onAdd = ()=>{
+      const div=L.DomUtil.create('div','legend');
+      div.innerHTML='<i class="legend-box" style="background:blue"></i> Climatic monitoring stations';
+      return div;
+    };
+    L.control.layers().addTo(ccMap);
   }
 }
 
-
+// Load data + render for one cluster
 async function loadCluster(clusterName) {
-  const { data: stations, error: e1 } = await supabase
-    .from('station_clusters_geo')        // ← use the new view
-    .select('station_id, latitude, longitude')
+   ensureMap();
+  // a) get stations + coords
+  let { data: stations = [], error } = await supabase
+    .from('station_clusters_geo')
+    .select('station_id,latitude,longitude')
     .eq('cluster_name', clusterName);
-  if (e1) return console.error(e1);
+  if (error) return console.error(error);
+  const ids = stations.map(s=>s.station_id);
 
-  const ids = stations.map(s => s.station_id);
-
-  // latest readings
+  // b) fetch last-two readings for arrows
   const latest = {};
-  await Promise.all(Object.keys(PARAM_MAP).map(async key => {
-    const fullname = PARAM_MAP[key];
-    const { data, error } = await supabase
+  await Promise.all(Object.entries(PARAM_MAP).map(async ([key,name])=>{
+    const { data = [] } = await supabase
       .from('all_timeseries_data')
-      .select('timestamp,value')
-      .in('station_id', ids)
-      .eq('parameter_fullname', fullname)
-      .order('timestamp', { ascending: false })
-      .limit(1);
-    latest[key] = error ? { timestamp:null,value:null } : (data[0] || { timestamp:null,value:null });
+      .select('value,timestamp')
+      .in('station_id',ids)
+      .eq('parameter_fullname',name)
+      .order('timestamp',{ascending:false})
+      .limit(2);
+    latest[key] = data;
   }));
 
-  // 12-hour history
-  const since = new Date(Date.now() - 12*3600*1000).toISOString();
-  const { data: history, error: e2 } = await supabase
-    .from('all_timeseries_data')
-    .select('parameter_fullname,timestamp,value')
-    .in('station_id', ids)
-    .gte('timestamp', since)
-    .order('timestamp', { ascending: true });
-  if (e2) console.error(e2);
+  // c) render cards + charts
+  for (let [key,name] of Object.entries(PARAM_MAP)) {
+    const [cur={},prev={}] = latest[key] || [];
+    const cv = cur.value ?? null, pv = prev.value ?? cv;
+    const delta = cv!=null && pv!=null ? cv - pv : 0;
+    const arrow = delta >  0.01 ? '▲'
+                : delta < -0.01 ? '▼'
+                :                 '—';
 
-  // render cards + sparklines
-  for (let key in PARAM_MAP) {
-    const card = latest[key];
-    document.getElementById(`${key}-value`).innerText =
-      card.value != null ? card.value.toFixed(1) : '–';
-    document.getElementById(`${key}-ts`).innerText =
-      card.timestamp ? new Date(card.timestamp).toLocaleString() : '–';
+    // update value & arrow
+    const valEl = document.getElementById(`${key}-value`);
+    const arrEl = document.getElementById(`${key}-arrow`);
+    const tsEl  = document.getElementById(`${key}-ts`);
+    if (valEl) valEl.innerText = cv!=null?cv.toFixed(1):'–';
+    if (arrEl) {
+      const cls = arrow==='▲' ? 'badge bg-success'
+                : arrow==='▼' ? 'badge bg-danger'
+                : 'badge bg-light text-dark';
+      arrEl.className = cls;
+      arrEl.innerText = arrow;
+      }
+    if (tsEl)  tsEl.innerText = cur.timestamp
+                   ? new Date(cur.timestamp).toLocaleTimeString()
+                   : '–';
 
-    const pts = (history||[])
-      .filter(h => h.parameter_fullname===PARAM_MAP[key])
-      .map(h => +h.value);
-    drawSparkline(document.getElementById(`spark-${key}`), pts);
+    // color‐code discharge
+    if (key==='disc' && valEl) {
+      valEl.style.color = cv>=20?'red':cv>=10?'goldenrod':'green';
+    }
+
+    // get 6h history
+    const since = new Date(Date.now()-HOURS*3600*1000).toISOString();
+    const { data: hist = [] } = await supabase
+      .from('all_timeseries_data')
+      .select('timestamp,value')
+      .in('station_id',ids)
+      .eq('parameter_fullname', name)
+      .gte('timestamp', since)
+      .order('timestamp',{ascending:true});
+
+    const labels = hist.map(h=>new Date(h.timestamp).toLocaleTimeString());
+    const values = hist.map(h=>+h.value);
+    const unit   = key==='disc'? 'm³/s' : key==='height'? 'm' : '°C';
+    drawChart(key, labels, values, unit);
   }
 
-  // redraw map markers
-  ccMap.eachLayer(l => l instanceof L.CircleMarker && ccMap.removeLayer(l));
-  stations.forEach(s =>
-    L.circleMarker([s.latitude, s.longitude], { radius: 6 }).addTo(ccMap)
-  );
-  const bounds = stations.map(s => [s.latitude, s.longitude]);
-  if (bounds.length) ccMap.fitBounds(bounds);
-}
-
-function drawSparkline(canvas, data) {
-  const ctx = canvas.getContext('2d'), w=canvas.width, h=canvas.height;
-  ctx.clearRect(0,0,w,h);
-  if (!data.length) return;
-  const min=Math.min(...data), max=Math.max(...data);
-  ctx.beginPath();
-  data.forEach((v,i)=>{
-    const x = (i/(data.length-1))*w,
-          y = h - ((v-min)/((max-min)||1))*h;
-    i===0?ctx.moveTo(x,y):ctx.lineTo(x,y);
+  // d) redraw map markers
+  window.ccMap.eachLayer(l => l instanceof L.CircleMarker && ccMap.removeLayer(l));
+  stations.forEach(s => {
+    L.circleMarker([s.latitude, s.longitude],{radius:5}).addTo(ccMap);
   });
-  ctx.stroke();
+  const pts = stations.map(s=>[s.latitude,s.longitude]);
+  if(pts.length) ccMap.fitBounds(pts);
 }
 
-// document.addEventListener('DOMContentLoaded', initConditions);
+window.initConditions = initConditions;
+window.loadCluster    = loadCluster;
