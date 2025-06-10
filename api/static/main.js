@@ -32,7 +32,9 @@ const ACCESS_POINTS = [
   { name: "Gilkison Flats",              lat: 43.1208596,   lon: -80.2680613 },
   { name: "Caledonia Kinsmen Park",      lat: 43.0739608,   lon: -79.9560741 },
   { name: "York Park",                   lat: 43.0207607,    lon: -79.9329564 },
-  { name: "Bob Baigent Memorial Park",   lat: 42.9481751,   lon: -79.8635429 }
+  { name: "Bob Baigent Memorial Park",   lat: 42.9481751,   lon: -79.8635429 },
+  { name: "Snyder's Flats Conservation Area", lat: 43.5099088,   lon: -80.4883833},
+  {name: "Columbia Lake",               lat: 43.472774, lon: -80.5595417}
 ]
 
 
@@ -134,6 +136,11 @@ const CLUSTERS = {
 
   const damLayer    = L.layerGroup().addTo(map);
   const accessLayer = L.layerGroup().addTo(map);
+  window.STATIC_DAMS.forEach(d => {
+    L.marker([d.lat, d.lon], { icon: damIcon })
+     .addTo(damLayer)
+     .bindPopup(`<strong>${d.name}</strong>`);
+  });
 
   // helper to recompute bounds whenever markers change
   const updateBounds = () => {
@@ -146,21 +153,18 @@ const CLUSTERS = {
     }
   };
 
-  // 1) fetch your DAMs API, add to damLayer
-  fetch('/api/dams')
-    .then(r => r.json())
-    .then(dams => {
-      dams.forEach(d => {
-        L.marker([d.lat, d.lon], { icon: damIcon })
-          .addTo(damLayer)
-          .bindPopup(`<strong>${d.name}</strong><br>
-            <a href="https://www.google.com/maps?q=${d.lat},${d.lon}" target="_blank">
-              Get directions
-            </a>`);
-      });
-      updateBounds();
-    })
-    .catch(console.error);
+  // 1) fetch  DAMs API, add to damLayer
+  window.STATIC_DAMS.forEach(d => {
+    L.marker([d.lat, d.lon], { icon: damIcon })
+      .addTo(damLayer)
+      .bindPopup(`
+        <strong>${d.name}</strong><br>
+        <a href="https://www.google.com/maps?q=${d.lat},${d.lon}"
+           target="_blank">
+          Get directions
+        </a>
+      `);
+  });
 
   // 2) static access points
   const DAM_NAMES = new Set([ "Three Bridges Dam", "Penman’s Dam" ]);
