@@ -1,4 +1,4 @@
-// 0) Parameter ↔ exact DB name map
+
 const PARAM_MAP = {
   disc:   'Discharge – River (cms)',
   height: 'Height – River Stage',
@@ -18,16 +18,56 @@ function drawChart(key, labels, data, unit) {
   const ctx = canvas.getContext('2d');
   chartRegistry[id] = new Chart(ctx, {
     type: 'line',
-    data: { labels, datasets: [{ label: unit, data, borderColor:'#007bff', fill:false, tension:0.3, pointRadius:2 }] },
+    data: {
+      labels,
+      datasets: [{
+        label: unit,
+        data,
+        borderColor:   '#007bff',
+        backgroundColor: 'rgba(0,123,255,0.1)',  // light fill under line
+        fill: true,
+        tension: 0.3,
+        pointRadius: 3,
+        pointBackgroundColor: '#007bff',
+        pointHoverRadius: 5,
+      }]
+    },
     options: {
       responsive: false,
       maintainAspectRatio: false,
       scales: {
-        x: { display: true, title: { display: true, text: 'Time' } },
-        y: { display: true, title: { display: true, text: unit } }
+        x: {
+          display: true,
+          title: {
+            display: true,
+            text: 'Time',
+            color: '#555',
+            font: { size: 10 }
+          },
+          grid: { color: '#ececec' },
+          ticks: { color: '#666', maxRotation: 0, autoSkip: true }
+        },
+        y: {
+          display: true,
+          title: {
+            display: true,
+            text: unit,
+            color: '#555',
+            font: { size: 10 }
+          },
+          grid: { color: '#ececec' },
+          ticks: { color: '#666' }
+        }
       },
-      plugins: { legend: { display: false } },
-      elements: { line: { spanGaps: true } }
+      plugins: {
+        legend: { display: false },
+        tooltip: {
+          enabled: true,
+          mode: 'index',
+          intersect: false
+        }
+      },
+      layout: { padding: { top: 4, bottom: 4, left: 4, right: 4 } }
     }
   });
 }
