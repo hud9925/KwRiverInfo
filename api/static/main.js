@@ -93,6 +93,9 @@ const CLUSTERS = {
   showLoader();
   const html = await fetch(`/tabs/${name}`).then(r=>r.text());
   document.getElementById('tab-content').innerHTML = html;
+
+  if (window.va) window.va('page');
+  
   if (name === 'map') initMapTab();
   else if (name === 'cond')  initConditions();
   else if (name === 'adv') initAdvisoriesTab();

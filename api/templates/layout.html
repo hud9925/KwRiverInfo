@@ -48,7 +48,11 @@
       "{{ SUPABASE_ANON_KEY }}"
     );
   </script>
-  
+  <!-- Vercel Insights (HTML implementation) -->
+  <script>
+    window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments) };
+  </script>
+  <script defer src="/_vercel/insights/script.js"></script>
 </head>
 <body>
   <!-- Navbar -->
@@ -88,10 +92,8 @@
   <script src="{{ url_for('static', filename='conditions.js') }}"></script>
   <!-- Main SPA router / map & adv inits -->
   <script src="{{ url_for('static', filename='main.js') }}"></script>
-  <script type="module" defer>
-    import { inject } from 'https://cdn.jsdelivr.net/npm/@vercel/analytics@0.2.0/dist/index.js';
-    inject();
-  </script>
+
+
   <!-- Contact / Footer -->
   <footer class="text-center py-3 mt-5 border-top">
     <p class="mb-0">
