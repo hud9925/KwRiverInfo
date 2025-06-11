@@ -121,8 +121,6 @@ kwfishing/
 ## Contributing
 
 * Fork the repo & create feature branches.
-* Open pull requests against `main`.
-* Please adhere to PEP8 (Python) and consistent JS styling.
 
 ---
 
