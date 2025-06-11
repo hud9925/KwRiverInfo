@@ -1,28 +1,20 @@
-<!-- center-constrain the content -->
+<!-- templates/partials/map_fragment.html -->
 <div class="container-fluid px-lg-5">
 
-  <h2 class="text-center fw-semibold my-4">River Infrastructure Map</h2>
-
-  <!-- MAP -->
-  <div class="d-flex justify-content-center">
-    <div id="main-map" class="rounded shadow-sm border" style="width:100%;max-width:1000px;height:400px;"></div>
+  <div class="card shadow-sm mb-4">
+    <div class="card-header text-center bg-white">
+      <h2 class="h5 mb-0">River Infrastructure Map</h2>
+    </div>
+    <div class="card-body p-0">
+      <div id="main-map"  class="rounded-bottom mx-auto" style="height:300px; width:80%; max-width:800px;"></div>
+    </div>
   </div>
 
-  <!-- friendly caption -->
-  <p class="text-center text-muted mt-3">
-  Overview of GRCA 
-  <img
-    src="{{ url_for('static', filename='dam.png') }}"
-    alt="Dam"
-    style="width:20px; height: 20px; vertical-align:middle; margin:0 4px;"
-  >
-  dams and public river‐access points
-  <img
-    src="{{ url_for('static', filename='access.png') }}"
-    alt="Access Point"
-    style="width:20px; height:20px; vertical-align:middle; margin:0 4px;"
-  >.  
-  Click any marker for its name and a one‐tap link to driving directions.
-</p>
-
+  <p class="text-center text-muted small mb-5">
+    Overview of GRCA 
+    <img src="{{ url_for('static', filename='dam.png') }}" width="18" alt="Dam icon"> dams  
+    &amp; river-access points 
+    <img src="{{ url_for('static', filename='access.png') }}" width="18" alt="Access icon">.  
+    Tap a marker for its name and a one-tap link to driving directions.
+  </p>
 </div>
