@@ -2,7 +2,7 @@
 
 A real-time web dashboard for monitoring water and meteorological conditions across the Grand River watershed, developed for the Grand River Conservation Authority (GRCA).
 
-![GRCA Dashboard](https://www.grcariverinfo.com)
+![GRCA Dashboard]((https://www.grcariverinfo.com/))
 
 ## Features
 
@@ -17,6 +17,16 @@ A real-time web dashboard for monitoring water and meteorological conditions acr
 * **Chart.js** for time-series charts
 * **Supabase** as the backend database for station metadata and time-series data
 * **Flask API** serving data endpoints and server-rendered templates
+
+
+![image](https://github.com/user-attachments/assets/51e4ae96-f4bd-4c66-bdf4-99098044d5d0)
+Landing Page displaying both public access spots and dams within the GRCA. 
+
+![image](https://github.com/user-attachments/assets/a9581404-5e72-4b4f-97d7-82c571508885)
+Selected Feature on the map; for both dams and access points, you can also get the directions to the location
+
+![image](https://github.com/user-attachments/assets/b9a994d4-e33e-4703-826e-b02e6ea202de)
+Current Conditions Tab: Shows the latest climatic readings monitored by GRCA (when available), sorted by clusters (e.g Upper/Lower Conestogo River, Lake Belwood, etc)
 
 ## Tech Stack
 
@@ -112,11 +122,6 @@ kwfishing/
 * **Frontend**: deploy `templates/layout.html` + `static/` to Vercel or any static host.
 * **Backend**: deploy `api/` to Heroku, Fly.io, or similar.
 * Ensure environment variables are set and CORS or proxy settings allow `/api/*` calls.
-
-## Usage
-
-1. **Map Tab**: Explore dam locations (♦) and river-access points. Use layer controls to toggle visibility.
-2. **Current Conditions**: Select a cluster from the dropdown to view real-time data and trends.
 
 ## Contributing
 
